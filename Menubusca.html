@@ -11,67 +11,53 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="Js/script.js"></script>
 </head>
-
 <body >
 
-  <main class="app">
+  <div class="app">
 
     <h1 class="titulo">Menu</h1>
 
-    <nav class="menu">
+    <div class="menu">
 
-      <button class="item destaque"
-        onclick="selecionar('Buscar produto por voz')">
-        <span class="icone">🎙</span>
-        <span class="texto">
-          Falar para buscar<br>Produto
-        </span>
-        <span class="seta"></span>
-      </button>
+      <button class="item destaque" onclick="selecionar('Buscar produto por voz')">
+        <div class="icone"><div>
+          <div class="texto">Falar para buscar<br>Produto</div>
+          <div class="seta"></div>
+        </button>
 
-      <button class="item"
-        onclick="selecionar('Navegar no supermercado')">
-        <span class="icone">📍</span>
-        <span class="texto">
-          Navegar no<br>SuperMercado
-        </span>
-        <span class="seta"></span>
-      </button>
+     <button class="item" onclick="selecionar('Navegar no supermercado')">
+        <div class="icone"><div>
+          <div class="texto">Navegar no<br>Supermercado</div>
+          <div class="seta"></div>
+        </button>
 
-      <button class="item"
-        onclick="selecionar('Ler código de barras')">
-        <span class="icone">▥</span>
-        <span class="texto">
-          Ler Código de<br>Barras
-        </span>
-        <span class="seta"></span>
-      </button>
+        <button class="item" onclick="selecionar('Ler código de barras')">
+        <div class="icone"><div>
+          <div class="texto">Ler Código de<br>Barras</div>
+          <div class="seta"></div>
+        </button>
 
-      <button class="item"
-        onclick="selecionar('Reconhecer imagens')">
-        <span class="icone">📷</span>
-        <span class="texto">
-          Reconhecer<br>Imagens
-        </span>
-        <span class="seta"></span>
-      </button>
+        <button class="item" onclick="selecionar('Reconhecer imagens')">
+        <div class="icone"><div>
+          <div class="texto">Reconhecer<br>Imagens</div>
+          <div class="seta"></div>
+        </button>
 
-      <button class="item"
-        onclick="selecionar('Configurações')">
-        <span class="icone">⚙</span>
-        <span class="texto">
-          Configurações
-        </span>
-        <span class="seta"></span>
-      </button>
+        <button class="item" onclick="selecionar('Configurações')">
+        <div class="icone"><div>
+          <div class="texto">Configurações</div>
+          <div class="seta"></div>
+        </button>
 
-    </nav>
-  </main>
+      </div>
 
-  <script>
-    function selecionar(opcao) {
-      alert("Você selecionou: " + opcao);
-    }
-  </script>
+    </div>
+        
+    <script>
+        function selecionar(opcao) {
+            alert("Você selecionou: " + opcao);
+        }
+    </script>
+  
 </body>
 </html>
