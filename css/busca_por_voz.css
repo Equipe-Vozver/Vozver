@@ -1,0 +1,175 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background: #ffffff;
+    color: #000000;
+    font-family: 'Poppins', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
+/* Coluna que ocupa a tela toda: topo em cima, centro no meio, base embaixo */
+.app {
+    width: 100%;
+    max-width: 360px;
+    min-height: 100dvh;
+    padding: 24px 16px 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---------- TOPO ---------- */
+.topo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.voltar {
+    color: #000000;
+    text-decoration: none;
+    font-size: 2rem;
+    min-width: 48px;          /* área de toque grande: o dedo erra menos */
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.topo-titulo {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* ---------- CENTRO ---------- */
+.centro {
+    flex: 1;                  /* ocupa o espaço que sobrar e empurra a base pra baixo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+/* ---------- MICROFONE ---------- */
+.microfone {
+    width: 120px;
+    height: 120px;
+    border: none;
+    border-radius: 50%;       /* 50% = círculo perfeito */
+    background-color: #f25a0a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 54px 0;           /* os anéis não ocupam espaço, então damos folga */
+
+    /* Estado normal: anéis com espalhamento 0 (invisíveis).
+       Precisam ser 3 sombras, igual ao estado .ouvindo, senão o navegador não anima */
+    box-shadow:
+        0 0 0 0 #ff8a1f,
+        0 0 0 0 rgba(255, 138, 31, 0.35),
+        0 0 0 0 rgba(255, 138, 31, 0.15);
+
+    transition: box-shadow 0.4s, transform 0.2s;
+}
+.microfone.ouvindo {
+    box-shadow:
+        0 0 0 14px #ff8a1f,
+        0 0 0 34px rgba(255, 138, 31, 0.35),
+        0 0 0 54px rgba(255, 138, 31, 0.15);
+    animation: pulsar 1.5s ease-in-out infinite;
+}
+
+/* @keyframes = o "roteiro" da animação */
+@keyframes pulsar {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.06); }
+}
+
+.microfone:active {
+    transform: scale(0.96);
+}
+
+/* Foco do teclado/leitor de tela: contorno escuro (o ciano some no fundo branco) */
+.microfone:focus-visible {
+    outline: 4px solid #1b2128;
+    outline-offset: 6px;      /* colado no botão, já que sem anéis não há nada em volta */
+}
+
+/* Com os anéis visíveis, o contorno precisa ficar para fora do último anel */
+.microfone.ouvindo:focus-visible {
+    outline-offset: 62px;
+}
+
+/* Algumas pessoas passam mal com movimento. O sistema delas avisa o navegador
+   e a gente respeita: sem pulsar, mas os anéis continuam aparecendo */
+@media (prefers-reduced-motion: reduce) {
+    .microfone.ouvindo {
+        animation: none;
+    }
+}
+
+.mensagem {
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.3;
+}
+
+/* ---------- BASE ---------- */
+.base {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.exemplo {
+    display: flex;
+    align-items: center;
+    min-height: 72px;
+    padding: 12px 20px 12px 16px;
+    background-color: #ff6e00;
+    color: #000000;
+    border-radius: 40px;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.cancelar {
+    display: flex;
+    align-items: center;
+    justify-content: center;  /* centraliza ícone + texto, como no Figma */
+    gap: 12px;
+    min-height: 72px;
+    padding: 12px 20px 12px 16px;
+    background-color: #1b2128;
+    color: #ffffff;
+    border: 3px solid #7df3ff;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 700;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.cancelar:active {
+    transform: scale(0.98);
+}
+
+.cancelar:focus-visible {
+    outline: 3px solid #ff6e00;
+    outline-offset: 2px;
+}
+
+.icone {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    object-fit: contain;
+}
