@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Alexsandra, Daniel, Gabriel, Isabella, Laryssa, Melissa, Samuel">
+
+    <title>Leitor de código de barras - VozVer</title>
+
+    <link rel="icon" type="image/png" href="IMG/icone-vozver.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/ler_codigo_de_barras.css">
+    <script src="Js/ler_codigo_de_barras.js" defer></script>
+</head>
+
+<body>
+    <main class="app">
+
+        <!-- 1) TOPO -->
+        <header class="topo">
+            <a class="voltar" href="Menubusca.html" aria-label="Voltar ao menu">←</a>
+            <h1 class="topo-titulo">Leitor de código de barras</h1>
+        </header>
+
+        <!-- 2) ÁREA DE LEITURA -->
+        <section class="leitor" aria-label="Área de leitura">
+            <video class="camera" id="camera" autoplay playsinline muted aria-label="Imagem da câmera"></video>
+            <span class="canto canto-sup-esq" aria-hidden="true"></span>
+            <span class="canto canto-sup-dir" aria-hidden="true"></span>
+            <span class="canto canto-inf-esq" aria-hidden="true"></span>
+            <span class="canto canto-inf-dir" aria-hidden="true"></span>
+        </section>
+
+        <!-- 3) AVISO -->
+        <p class="status" id="status" role="status">
+            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="m9 12 2 2 4-4"></path>
+            </svg>
+            <span id="texto-status">Aponte para o código de barras</span>
+        </p>
+
+        <!-- 4) CARTÃO DO PRODUTO (Começa oculto com 'hidden') -->
+        <article class="produto" id="resultado" hidden>
+            <img class="produto-foto" src="IMG/cafe-melitta.png" alt="Pacote de café Melitta Tradicional">
+            <div class="produto-info">
+                <h2 class="produto-nome">Café Melitta Tradicional</h2>
+                <dl class="dados">
+                    <div><dt>Marca:</dt><dd>Melitta</dd></div>
+                    <div><dt>Peso:</dt><dd>500g</dd></div>
+                    <div><dt>Preço:</dt><dd>R$ 16,90</dd></div>
+                </dl>
+            </div>
+        </article>
+
+        <!-- 5) BOTÃO PRINCIPAL -->
+        <button class="ouvir" id="botao-ouvir" type="button">
+            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+            </svg>
+            <span>Ouvir informações</span>
+        </button>
+
+        <!-- 6) GRADE 2x2 -->
+        <nav class="acoes" aria-label="Outras ações">
+            <button class="acao" id="botao-simular" type="button">
+                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 7V5a2 2 0 0 1 2-2h2"></path>
+                    <path d="M17 3h2a2 2 0 0 1 2 2v2"></path>
+                    <path d="M21 17v2a2 2 0 0 1-2 2h-2"></path>
+                    <path d="M7 21H5a2 2 0 0 1-2-2v-2"></path>
+                    <path d="M8 7v10M12 7v10M17 7v10"></path>
+                </svg>
+                <span>Escanear novamente</span>
+            </button>
+
+            <a class="acao" href="configuracoes.html">
+                <span class="ico-texto" aria-hidden="true">A+</span>
+                <span>Configurações</span>
+            </a>
+
+            <a class="acao" href="busca_por_voz.html">
+                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="9" y="2" width="6" height="12" rx="3"></rect>
+                    <path d="M5 11a7 7 0 0 0 14 0"></path>
+                    <path d="M12 18v4M8 22h8"></path>
+                </svg>
+                <span>Buscar por voz</span>
+            </a>
+
+            <a class="acao" href="historico.html">
+                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 6v6l4 2"></path>
+                </svg>
+                <span>Histórico de produtos</span>
+            </a>
+        </nav>
+
+    </main>
+</body>
+
+</html>
