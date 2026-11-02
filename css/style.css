@@ -1,0 +1,86 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #fd6201;
+    color: #56F0FC;
+    font-family: 'Poppins', Arial, sans-serif;
+    text-align: center;
+}
+
+.tela-inicial {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+/* ---------- LOGO PISCANDO ---------- */
+.logo {
+    width: 180px;
+    height: auto;
+    /* 2s por ciclo (antes 1.6s). Sem curva aqui: quem define a curva é cada trecho do @keyframes */
+    animation: piscar 2s infinite;
+    will-change: transform;   /* avisa o navegador "vou animar isto": deixa o movimento mais liso */
+}
+
+/* O "roteiro" da piscada: scaleY é o zoom só na ALTURA.
+   1 = olho aberto | 0.08 = quase fechado (8% da altura).
+   Fica aberto de 0% a 40%, fecha até 50% e reabre até 60%: a piscada dura só 20% do ciclo */
+@keyframes piscar {
+    /* 0% a 28%: olho aberto. No fim desse trecho começa a fechar,
+       e "ease-in" = começa devagar e acelera, como uma pálpebra caindo */
+    0%   { transform: scaleY(1); }
+    28%  { transform: scaleY(1);    animation-timing-function: ease-in; }
+
+    /* 46% a 50%: fechado (uma pausinha curta). Aqui começa a abrir,
+       e "ease-out" = começa rápido e desacelera, como a pálpebra subindo */
+    46%  { transform: scaleY(0.08); }
+    50%  { transform: scaleY(0.08); animation-timing-function: ease-out; }
+
+    /* 68% a 100%: aberto de novo, até o fim do ciclo */
+    68%  { transform: scaleY(1); }
+    100% { transform: scaleY(1); }
+}
+
+.titulo {
+    font-size: 3rem;
+    font-weight: 800;
+}
+
+.slogan {
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+/* "Visualmente escondido": o texto continua existindo pro leitor de tela,
+   mas fica reduzido a 1 pixel, invisível. NÃO use display:none, porque aí o leitor ignora também */
+.so-leitor {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+/* Quem pediu menos movimento no celular vê o olho aberto e parado */
+@media (prefers-reduced-motion: reduce) {
+    .logo {
+        animation: none;
+    }
+}
