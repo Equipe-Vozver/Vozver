@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Alexsandra, Daniel, Gabriel, Isabella, Laryssa, Melissa, Samuel">
+    <title>Buscar por voz - VozVer</title>
+
+    <link rel="icon" type="image/png" href="IMG/icone-vozver.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/busca_por_voz.css">
+    <script src="Js/busca_por_voz.js" defer></script>
+</head>
+
+<body>
+    <main class="app">
+
+        <header class="topo">
+            <a class="voltar" href="Menubusca.html" aria-label="Voltar ao menu">←</a>
+            <h1 class="topo-titulo">Buscar por voz</h1>
+        </header>
+
+        <section class="centro">
+            <!-- É um <button> porque faz uma ação (começar a ouvir) -->
+            <button class="microfone" id="botao-microfone" type="button" aria-label="Começar a ouvir">
+                <!-- viewBox é a "folha quadriculada" do desenho; width e height são o tamanho na tela -->
+                <svg viewBox="0 0 24 24" width="64" height="64"
+                     fill="none" stroke="#ffffff" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="2" width="6" height="12" rx="3"></rect>
+                    <path d="M5 11a7 7 0 0 0 14 0"></path>
+                    <path d="M12 18v4M8 22h8"></path>
+                </svg>
+            </button>
+
+            <!-- aria-live: quando o texto muda, o leitor de tela fala sozinho -->
+            <p class="mensagem" id="mensagem" aria-live="polite">Diga o que você procura...</p>
+        </section>
+
+        <section class="base">
+            <p class="exemplo">Exemplo: arroz integral até 15 reais</p>
+
+            <a class="cancelar" href="Menubusca.html">
+                <img class="icone" src="IMG/IMG-busca-por-voz/botao-cancelar.png" alt="">
+                <span>Cancelar</span>
+            </a>
+        </section>
+        
+
+    </main>
+</body>
+</html>

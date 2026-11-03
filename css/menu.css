@@ -1,0 +1,112 @@
+/* ===== Menu ===== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background: #ffffff;
+    font-family: Arial, sans-serif;
+    color: #000000;
+    display: flex;
+    justify-content: center;
+}
+
+.app {
+    width: 100%;
+    max-width: 360px;
+    min-height: 100vh;
+    padding: 52px 14px 20px;
+}
+
+.titulo {
+    margin: 0 24px 28px;
+    padding: 12px;
+    background-color: #e8e8e8;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    border-radius: 28px;
+    box-shadow: 0 8px 0 #6b6b6b;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* Cada botão do menu */
+.item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 72px;
+    padding: 12px 20px 12px 16px;
+    background-color: #1b2128;
+    color: #ffffff;
+    border: 3px solid #ff6e00;
+    border-radius: 40px;
+    text-decoration: none;
+    font-size: larger;
+    font-weight: 700;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+/* flex: 1 faz o texto ocupar o espaço livre e empurra a seta para a direita */
+.texto {
+    flex: 1;
+}
+
+.seta {
+    font-size: 70px;
+}
+
+.icone {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+
+/* Quando passa o mouse, toca ou navega pelo teclado, o botão fica laranja */
+.item:hover,
+.item:focus-visible,
+.item:active {
+    background-color: #ff6e00;
+    border-color: #ff6e00;
+    color: #000000;
+}
+
+.item:active {
+    transform: scale(0.98);
+}
+
+/* Mostra onde está o foco para quem usa o teclado */
+.item:focus-visible {
+    outline: 3px solid #7df6ff;
+    outline-offset: 2px;
+}
+
+.destaque:active {
+    background-color: #ff8c33;
+}
+.rodape-privacidade {
+  padding: 1rem;
+  text-align: center;
+}
+
+.rodape-privacidade a {
+  color: #0E7C86;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* Mostra onde o foco está quando se navega pelo teclado */
+.rodape-privacidade a:focus-visible {
+  outline: 3px solid #F57C00;
+  outline-offset: 3px;
+}

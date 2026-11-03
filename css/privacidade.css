@@ -1,0 +1,201 @@
+/* ===== Cores do Vozver ===== */
+:root {
+  --laranja: #F57C00;
+  --turquesa: #0E7C86;
+  --turquesa-claro: #E3F4F5;
+  --texto: #1F2933;
+  --fundo: #FFFFFF;
+}
+
+/* ===== Base ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Nunito", Arial, sans-serif;
+  font-size: 1.125rem;      /* texto um pouco maior, bom para baixa visão */
+  line-height: 1.7;
+  color: var(--texto);
+  background: var(--fundo);
+}
+
+/* ===== Link para pular ao conteúdo (aparece ao usar o Tab) ===== */
+.pular {
+  position: absolute;
+  left: -999px;
+}
+
+.pular:focus {
+  left: 1rem;
+  top: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--laranja);
+  color: var(--texto);
+  font-weight: 700;
+  z-index: 10;
+}
+
+/* ===== Topo ===== */
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 6px solid var(--laranja);
+}
+
+.marca {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--turquesa);
+  text-decoration: none;
+}
+
+.slogan {
+  margin: 0;
+  font-weight: 700;
+}
+
+/* ===== Conteúdo ===== */
+main {
+  max-width: 46rem;       /* linhas curtas ficam mais fáceis de ler */
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2.25rem;
+  line-height: 1.2;
+  color: var(--turquesa);
+}
+
+h2 {
+  margin-top: 2.5rem;
+  font-size: 1.5rem;
+  color: var(--turquesa);
+}
+
+.data {
+  margin: 0.5rem 0 1.5rem;
+  font-size: 1rem;
+}
+
+/* ===== Resumo (destaque da página) ===== */
+.resumo {
+  padding: 1.25rem 1.5rem;
+  background: var(--turquesa-claro);
+  border-left: 8px solid var(--laranja);
+  border-radius: 0.75rem;
+}
+
+.resumo h2 {
+  margin-top: 0;
+}
+
+.resumo ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+/* ===== Índice ===== */
+.indice h2 {
+  margin-top: 2rem;
+}
+
+.indice ol {
+  padding-left: 1.5rem;
+}
+
+/* ===== Links e foco do teclado ===== */
+a {
+  color: var(--turquesa);
+  font-weight: 700;
+}
+
+a:focus-visible {
+  outline: 3px solid var(--laranja);
+  outline-offset: 3px;
+}
+
+/* ===== Listas ===== */
+li {
+  margin-bottom: 0.5rem;
+}
+
+/* ===== Tabela ===== */
+.tabela-rolagem {
+  overflow-x: auto;       /* no celular a tabela rola de lado, sem quebrar a página */
+}
+
+table {
+  width: 100%;
+  min-width: 36rem;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+caption {
+  padding-bottom: 0.5rem;
+  text-align: left;
+  font-weight: 700;
+}
+
+th,
+td {
+  padding: 0.75rem;
+  text-align: left;
+  vertical-align: top;
+  border: 1px solid #B8C4C6;
+}
+
+thead th {
+  background: var(--turquesa);
+  color: #FFFFFF;
+}
+
+tbody th {
+  background: var(--turquesa-claro);
+}
+
+/* ===== Campos que o grupo precisa preencher ===== */
+.preencher {
+  padding: 0 0.25rem;
+  background: #FFE0B2;
+  border-radius: 0.25rem;
+}
+
+/* ===== Rodapé ===== */
+.rodape {
+  padding: 1.5rem;
+  text-align: center;
+  background: var(--turquesa);
+  color: #FFFFFF;
+}
+
+.rodape p {
+  margin: 0.25rem 0;
+}
+
+.rodape a {
+  color: #FFFFFF;
+}
+
+.rodape a:focus-visible {
+  outline-color: #FFFFFF;
+}
+
+/* ===== Celular ===== */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  body {
+    font-size: 1.0625rem;
+  }
+}
