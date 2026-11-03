@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="tecnologia assistiva">
+    <meta name="author" content="Alexsandra, Daniel, Gabriel, Isabella, Laryssa, Melissa, Samuel">
+    <link rel="icon" type="image/png" href="IMG/icone-vozver.png">
+    <title>VozVer</title>
+    <link rel="stylesheet" href="css/menu.css">
+    <script src="Js/script.js"></script>
+</head>
+<body>
+  <!-- <main> avisa o leitor de tela: "aqui começa o conteúdo principal" -->
+  <main class="app">
+    <h1 class="titulo">Menu</h1>
+
+    <!-- <nav> = bloco de navegação; o aria-label dá um nome a ele -->
+    <nav class="menu" aria-label="Menu do Vozver">
+      <a class="item" href="busca_por_voz.html">
+        <img class="icone" src="IMG/IMG-menu/icone_buscar_por_voz.png" alt="Icone do Microfone">
+        <span class="texto">Falar para buscar produto</span>
+        <span class="seta" aria-hidden="true">›</span>
+      </a>
+    <br>
+      <a class="item" href="navegar_no_supermercado.html">
+        <img class="icone" src="IMG/IMG-menu/icone-map.png" alt="Icone do Mapa">
+        <span class="texto">Navegar No Super</span>
+        <span class="seta" aria-hidden="true">›</span>
+      </a>
+       <br>
+      <a class="item destaque" href="ler_codigo_de_barras.html">
+         <img class="icone" src="IMG/IMG-menu/icone-codigodebarras.png" alt="icone do Leitor Do Código de Barras">
+        <span class="texto">Ler Código de Barras</span>
+        <span class="seta" aria-hidden="true">›</span>
+      </a>
+       <br>
+      <a class="item" href="reconhecer_imagens.html">
+        <img class="icone" src="IMG/IMG-menu/icone_reconhecer_imagem.png" alt="Icone do Reconhecer Imagens">
+        <span class="texto">Reconhecer Imagens</span>
+        <span class="seta" aria-hidden="true">›</span>
+      </a>
+       <br>
+      <a class="item" href="configuracoes.html">
+        <img class="icone" src="IMG/IMG-menu/icone_configuracoes.png"alt="icone de Configurações">
+        <span class="texto">Configurações</span>
+        <span class="seta" aria-hidden="true">›</span>
+      </a>
+      
+
+      <!-- 👉 SUA PARTE: repita esse bloco para os outros 4 itens -->
+
+    </nav>
+  </main>
+    <script>
+        function selecionar(opcao) {
+            alert("Você selecionou: " + opcao);
+        }
+    </script>
+ 
+</body>
+</html>
