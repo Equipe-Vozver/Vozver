@@ -1,0 +1,264 @@
+/* O JavaScript muda --size (texto) e --icon (ícones) para ampliar a tela */
+:root {
+    --bg: #dffbff;
+    --text: #002a52;
+    --navy: #003f7d;
+    --on-navy: #ffffff;
+    --destaque: #6be8f5;
+    --on-destaque: #002a52;
+    --cyan: #6be8f5;
+    --borda: #003f7d;
+    --track: #b8cfdc;
+    --size: 1;
+    --icon: 1;
+}
+
+/* contraste negativo: o JavaScript coloca data-contrast="negativo" no <html> */
+:root[data-contrast="negativo"] {
+    --bg: #000000;
+    --text: #ffffff;
+    --navy: #111111;
+    --on-destaque: #000000;
+    --cyan: #ffffff;
+    --borda: #ffffff;
+    --track: #555555;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Poppins', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
+.app {
+    width: 100%;
+    max-width: 420px;
+    padding: 16px 20px 40px;
+}
+
+svg {
+    width: calc(28px * var(--icon));
+    height: calc(28px * var(--icon));
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+button {
+    font: inherit;
+    cursor: pointer;
+}
+
+/* mostra onde o teclado está */
+button:focus-visible,
+input[type=range]:focus-visible,
+.seg input:focus-visible + label {
+    outline: 3px solid var(--text);
+    outline-offset: 3px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+header h1 {
+    flex: 1;
+    margin: 0 40px 0 0;
+    text-align: center;
+    font-size: calc(1.05rem * var(--size));
+}
+
+.back {
+    background: none;
+    border: 0;
+    color: var(--text);
+    padding: 4px;
+}
+
+.back svg {
+    width: 34px;
+    height: 34px;
+}
+
+section {
+    margin-bottom: 26px;
+}
+
+h2,
+legend {
+    margin: 0 0 12px;
+    padding: 0;
+    font-size: calc(1.05rem * var(--size));
+    font-weight: 700;
+}
+
+fieldset {
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+/* botões de escolher (tamanho do texto e contraste) */
+.seg {
+    display: grid;
+    gap: 12px;
+}
+
+.seg.three {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.seg.two {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.seg legend {
+    grid-column: 1 / -1;
+}
+
+/* a bolinha do radio fica escondida: quem aparece é o label */
+.seg input {
+    position: absolute;
+    opacity: 0;
+}
+
+.seg label {
+    display: grid;
+    place-items: center;
+    min-height: 60px;
+    border-radius: 14px;
+    border: 2px solid var(--cyan);
+    background: var(--navy);
+    color: var(--on-navy);
+    font-weight: 700;
+    font-size: calc(1rem * var(--size));
+    cursor: pointer;
+}
+
+/* opção escolhida fica ciano */
+.seg input:checked + label {
+    background: var(--destaque);
+    border-color: var(--destaque);
+    color: var(--on-destaque);
+}
+
+/* barra de velocidade da voz (a cor é pintada pelo JavaScript) */
+input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 30px;
+    border-radius: 8px;
+    border: 2px solid var(--borda);
+    background: var(--track);
+    cursor: pointer;
+}
+
+input[type=range]::-webkit-slider-runnable-track,
+input[type=range]::-moz-range-track {
+    height: 26px;
+    background: transparent;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    margin-top: 2px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 4px solid var(--borda);
+}
+
+input[type=range]::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 4px solid var(--borda);
+}
+
+.ends {
+    display: flex;
+    justify-content: space-between;
+    font-size: calc(0.9rem * var(--size));
+}
+
+/* linhas com chave liga/desliga */
+.row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 68px;
+    margin-bottom: 14px;
+    padding: 14px 16px;
+    background: var(--navy);
+    color: var(--on-navy);
+    border: 2px solid var(--cyan);
+    border-radius: 14px;
+}
+
+.row svg {
+    color: var(--destaque);
+}
+
+.row span {
+    flex: 1;
+    font-weight: 700;
+    font-size: calc(0.95rem * var(--size));
+}
+
+/* a chave: um fundo arredondado com uma bolinha dentro */
+.sw {
+    position: relative;
+    flex-shrink: 0;
+    width: 54px;
+    height: 30px;
+    border: 0;
+    border-radius: 15px;
+    background: #4a555c;
+}
+
+.sw::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #ffffff;
+}
+
+/* ligada: fica ciano e a bolinha vai para a direita */
+.sw[aria-checked=true] {
+    background: var(--destaque);
+}
+
+.sw[aria-checked=true]::after {
+    transform: translateX(24px);
+    background: var(--navy);
+}
+
+.rodape-privacidade {
+    padding: 1rem;
+    text-align: center;
+}
+
+.rodape-privacidade a {
+    color: var(--text);
+    font-weight: 700;
+}

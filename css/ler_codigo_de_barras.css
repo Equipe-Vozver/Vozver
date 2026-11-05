@@ -1,0 +1,295 @@
+/* ===== Leitor de código de barras ===== */
+
+/* ===== Cores do Vozver (azul marinho e ciano) ===== */
+:root {
+    --azul-marinho: #003f7d;  /* cor principal: botões, cartões, títulos */
+    --ciano: #6be8f5;         /* destaque: bordas, ícones, botão em foco */
+    --ciano-hover: #9cf1f9;   /* ciano mais claro, para o toque */
+    --ciano-claro: #dffbff;   /* fundo das telas */
+    --texto: #002a52;         /* texto escuro sobre fundo claro */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background: var(--ciano-claro);
+    color: var(--texto);
+    font-family: 'Poppins', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
+.app {
+    width: 100%;
+    max-width: 360px;
+    min-height: 100dvh;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* O atributo hidden esconde o elemento (usado no cartão do produto) */
+[hidden] {
+    display: none !important;
+}
+
+/* ---------- Topo ---------- */
+.topo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.voltar {
+    color: var(--texto);
+    text-decoration: none;
+    font-size: 2rem;
+    min-width: 48px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.topo-titulo {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+/* ---------- Ícones SVG ---------- */
+.ico {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;   /* o traço usa a cor do texto */
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* ---------- Área da câmera ---------- */
+.leitor {
+    position: relative;
+    padding: 14px;
+}
+
+.camera {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    background-color: var(--azul-marinho);
+    border-radius: 12px;
+}
+
+/* Os quatro cantinhos azul marinho da moldura */
+.canto {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    border: 5px solid var(--azul-marinho);
+}
+
+.canto-sup-esq {
+    top: 0;
+    left: 0;
+    border-right: none;
+    border-bottom: none;
+    border-top-left-radius: 14px;
+}
+
+.canto-sup-dir {
+    top: 0;
+    right: 0;
+    border-left: none;
+    border-bottom: none;
+    border-top-right-radius: 14px;
+}
+
+.canto-inf-esq {
+    bottom: 0;
+    left: 0;
+    border-right: none;
+    border-top: none;
+    border-bottom-left-radius: 14px;
+}
+
+.canto-inf-dir {
+    bottom: 0;
+    right: 0;
+    border-left: none;
+    border-top: none;
+    border-bottom-right-radius: 14px;
+}
+
+/* ---------- Aviso ---------- */
+.status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background-color: var(--azul-marinho);
+    color: #ffffff;
+    border: 1px solid var(--ciano);
+    border-radius: 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+/* O JavaScript adiciona esta classe quando o código é lido com sucesso */
+.status.sucesso {
+    background-color: var(--ciano);
+    color: var(--texto);
+    border-color: var(--azul-marinho);
+}
+
+/* ---------- Cartão do produto ---------- */
+.produto {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px;
+    background-color: var(--azul-marinho);
+    color: #ffffff;
+    border-radius: 16px;
+}
+
+.produto-foto {
+    width: 84px;
+    height: 84px;
+    flex-shrink: 0;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.produto-nome {
+    font-size: 1.05rem;
+    line-height: 1.25;
+    margin-bottom: 8px;
+}
+
+.dados div {
+    display: flex;
+    gap: 6px;
+    font-size: 0.9rem;
+}
+
+.dados dt {
+    color: var(--ciano);
+}
+
+.dados dd {
+    font-weight: 700;
+}
+
+/* ---------- Botão "Ouvir informações" ---------- */
+.ouvir {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 72px;
+    border: 3px solid var(--azul-marinho);
+    border-radius: 40px;
+    background-color: var(--ciano);
+    color: var(--texto);
+    font-family: inherit;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.ouvir .ico {
+    width: 36px;
+    height: 36px;
+}
+
+.ouvir:active {
+    background-color: var(--ciano-hover);
+    transform: scale(0.98);
+}
+
+.ouvir:focus-visible {
+    outline: 3px solid var(--texto);
+    outline-offset: 3px;
+}
+
+/* ---------- Grade 2x2 ---------- */
+.acoes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.acao {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 72px;
+    padding: 10px 12px;
+    background-color: var(--azul-marinho);
+    color: #ffffff;
+    border: 2px solid var(--ciano);
+    border-radius: 16px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+/* Ícones ciano; ao tocar, o botão fica ciano e o ícone azul escuro */
+.acao .ico,
+.ico-texto {
+    color: var(--ciano);
+}
+
+.ico-texto {
+    font-size: 1.4rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.acao:active {
+    background-color: var(--ciano);
+    border-color: var(--ciano);
+    color: var(--texto);
+    transform: scale(0.98);
+}
+
+.acao:active .ico,
+.acao:active .ico-texto {
+    color: var(--texto);
+}
+
+.acao:focus-visible {
+    outline: 3px solid var(--texto);
+    outline-offset: 2px;
+}
+/* Rodapé com o link da política de privacidade */
+.rodape-privacidade {
+  padding: 1rem;
+  text-align: center;
+}
+
+.rodape-privacidade a {
+  color: var(--azul-marinho);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* Mostra onde o foco está quando se navega pelo teclado */
+.rodape-privacidade a:focus-visible {
+  outline: 3px solid var(--azul-marinho);
+  outline-offset: 3px;
+}
