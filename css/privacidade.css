@@ -1,0 +1,176 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Nunito', Arial, sans-serif;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: #002a52;
+    background: #ffffff;
+}
+
+/* link para pular direto ao conteúdo (aparece ao apertar Tab) */
+.pular {
+    position: absolute;
+    left: -999px;
+}
+
+.pular:focus {
+    left: 1rem;
+    top: 1rem;
+    padding: 0.5rem 1rem;
+    background: #6be8f5;
+    color: #002a52;
+    font-weight: 700;
+}
+
+.topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    border-bottom: 6px solid #6be8f5;
+}
+
+.marca {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #003f7d;
+    text-decoration: none;
+}
+
+.slogan {
+    margin: 0;
+    font-weight: 700;
+}
+
+/* largura limitada: linhas curtas são mais fáceis de ler */
+main {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 3rem;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.25rem;
+    color: #003f7d;
+}
+
+h2 {
+    margin-top: 2.5rem;
+    font-size: 1.5rem;
+    color: #003f7d;
+}
+
+.data {
+    margin: 0.5rem 0 1.5rem;
+    font-size: 1rem;
+}
+
+.resumo {
+    padding: 1.25rem 1.5rem;
+    background: #dffbff;
+    border-left: 8px solid #003f7d;
+    border-radius: 0.75rem;
+}
+
+.resumo h2 {
+    margin-top: 0;
+}
+
+.resumo ul {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.indice h2 {
+    margin-top: 2rem;
+}
+
+.indice ol {
+    padding-left: 1.5rem;
+}
+
+a {
+    color: #003f7d;
+    font-weight: 700;
+}
+
+a:focus-visible {
+    outline: 3px solid #003f7d;
+    outline-offset: 3px;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+/* no celular a tabela rola de lado, sem quebrar a página */
+.tabela-rolagem {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    min-width: 36rem;
+    border-collapse: collapse;
+    font-size: 1rem;
+}
+
+caption {
+    padding-bottom: 0.5rem;
+    text-align: left;
+    font-weight: 700;
+}
+
+th,
+td {
+    padding: 0.75rem;
+    text-align: left;
+    vertical-align: top;
+    border: 1px solid #9fc3d6;
+}
+
+thead th {
+    background: #003f7d;
+    color: #ffffff;
+}
+
+tbody th {
+    background: #dffbff;
+}
+
+/* campos que o grupo ainda precisa preencher */
+.preencher {
+    background: #b8f1f8;
+}
+
+.rodape {
+    padding: 1.5rem;
+    text-align: center;
+    background: #003f7d;
+    color: #ffffff;
+}
+
+.rodape p {
+    margin: 0.25rem 0;
+}
+
+.rodape a {
+    color: #ffffff;
+}
+
+.rodape a:focus-visible {
+    outline-color: #ffffff;
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.75rem;
+    }
+}

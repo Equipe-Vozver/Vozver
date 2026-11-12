@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações - VozVer</title>
+
+    <link rel="icon" type="image/png" href="IMG/icone-vozver-atualizado.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/configuracoes.css">
+    <script src="Js/configuracoes.js" defer></script>
+</head>
+
+<body>
+    <div class="app">
+
+        <header>
+            <button type="button" class="back" id="back" aria-label="Voltar" data-say="Voltar">
+                <svg viewBox="0 0 24 24">
+                    <path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor"
+                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </button>
+            <h1>Configurações</h1>
+        </header>
+
+        <main>
+            <!-- Tamanho do texto -->
+            <section>
+                <fieldset class="seg three" id="textSize">
+                    <legend><h2>Tamanho do texto</h2></legend>
+                    <input type="radio" name="text" id="t-sm" value="sm">
+                    <label for="t-sm" data-say="Texto pequeno" style="font-size:1.1rem">A</label>
+
+                    <input type="radio" name="text" id="t-md" value="md" checked>
+                    <label for="t-md" data-say="Texto médio" style="font-size:1.5rem">A</label>
+
+                    <input type="radio" name="text" id="t-lg" value="lg">
+                    <label for="t-lg" data-say="Texto grande" style="font-size:1.5rem">A+</label>
+                </fieldset>
+            </section>
+
+            <!-- Contraste -->
+            <section>
+                <fieldset class="seg two">
+                    <legend><h2>Contraste</h2></legend>
+                    <input type="radio" name="contrast" id="c-pad" value="padrao" checked>
+                    <label for="c-pad" data-say="Contraste padrão">Padrão</label>
+
+                    <input type="radio" name="contrast" id="c-neg" value="negativo">
+                    <label for="c-neg" data-say="Contraste negativo">Negativo</label>
+                </fieldset>
+            </section>
+             
+            <!-- Velocidade da voz -->
+            <section class="slider">
+                <h2 id="rateLabel">Velocidade da voz</h2>
+                <input type="range" id="rate" min="0" max="100" value="50" aria-labelledby="rateLabel">
+                <div class="ends"><span>Lenta</span><span>Rápida</span></div>
+            </section>
+
+            <!-- Chaves liga/desliga -->
+            <section>
+                <div class="row">
+                    <svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 9a4 4 0 010 6M18.5 6.5a8 8 0 010 11"/></svg>
+                    <span id="l-read">Ler ícones em voz alta</span>
+                    <button class="sw" role="switch" aria-checked="true" aria-labelledby="l-read" data-key="read"></button>
+                </div>
+
+                <div class="row">
+                    <svg viewBox="0 0 24 24"><path d="M3 19l5-14 5 14M5 14h6M15 19l3-8 3 8M16 17h4"/></svg>
+                    <span id="l-letters">Letras maiores</span>
+                    <button class="sw" role="switch" aria-checked="true" aria-labelledby="l-letters" data-key="letters"></button>
+                </div>
+
+                <div class="row">
+                    <svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+                    <span id="l-icons">Ícones ampliados</span>
+                    <button class="sw" role="switch" aria-checked="true" aria-labelledby="l-icons" data-key="icons"></button>
+                </div>
+            </section>
+        </main>
+        <footer class="rodape-privacidade">
+  <a href="politicaprivacidade.html">Política de Privacidade</a>
+</footer>
+
+    </div>
+    <!-- Link para a política de privacidade -->
+
+</body>
+</html>
