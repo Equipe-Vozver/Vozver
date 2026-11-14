@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/reconhecer-imagem.css">
+
+    <script src="Js/reconhecer-imagem.js" defer></script>
+
+    <title>Reconhecer Imagem</title>
+</head>
+
+<body>
+
+    <main class="tela">
+
+        <header class="cabecalho">
+
+            <div class="circulo-camera"></div>
+
+            <div class="camera">
+                <img src="IMG/camera-icon.png" alt="icone de camera" id="camera-icone">
+            </div>
+
+        </header>
+
+        <section class="area-foto" id="areaFoto">
+
+            <!-- Câmera real -->
+            <video id="camera" autoplay playsinline></video>
+
+            <!-- Moldura -->
+            <div class="moldura">
+
+                <span class="canto superior-esquerdo"></span>
+                <span class="canto superior-direito"></span>
+                <span class="canto inferior-esquerdo"></span>
+                <span class="canto inferior-direito"></span>
+
+            </div>
+
+            <canvas id="canvas" hidden></canvas>
+
+            <section id="resultado">
+                <p id="textoResultado">Toque na tela para capturar.</p>
+            </section>
+
+            <!-- Brilhos decorativos -->
+            <div class="brilhos">
+                <img src="IMG/brilho.png" alt="brilho">
+                <img src="IMG/brilho.png" alt="brilho">
+            </div>
+
+
+        </section>
+
+        <!-- Botão voltar -->
+        <footer class="rodape">
+
+            <button id="btnVoltar">VOLTAR</button>
+
+        </footer>
+
+    </main>
+
+</body>
+
+</html>

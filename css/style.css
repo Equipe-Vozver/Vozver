@@ -5,7 +5,7 @@
 }
 
 body {
-    background: linear-gradient(#dffbff, #ffffff);
+    background: linear-gradient(#0E1D3D, #304470);
     color: #003f7d;
     font-family: 'Poppins', Arial, sans-serif;
     text-align: center;
@@ -38,15 +38,6 @@ body {
     60%, 100% { transform: scaleY(1); }
 }
 
-.titulo {
-    font-size: 3rem;
-    font-weight: 800;
-}
-
-.slogan {
-    font-size: 1.2rem;
-    font-weight: 600;
-}
 
 /* texto que só o leitor de tela lê (fica fora da tela) */
 .so-leitor {
