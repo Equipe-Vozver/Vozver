@@ -1,0 +1,294 @@
+<!doctype html>
+<!-- ===== VozVer (PWA) =====
+     Um arquivo só com todas as telas. Cada <section class="tela"> é uma tela.
+     O JavaScript mostra uma tela por vez (js/navegacao.js).
+     Por que tudo num arquivo só? Porque o navegador só deixa o site falar
+     depois do primeiro toque, e esse "toque" vale só enquanto a página não recarrega.
+     Trocando de tela sem recarregar, o VozVer pode falar sozinho em todas as telas. -->
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VozVer</title>
+    <meta name="description" content="Ouça, Encontre, Escolha. App de acessibilidade para compras no mercado.">
+
+    <!-- Parte "PWA": nome, ícone e cor para instalar no celular -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0e1d3d">
+    <link rel="icon" href="img/icone-192.png">
+    <link rel="apple-touch-icon" href="img/icone-192.png">
+
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body data-tema="claro">
+
+    <!-- ============ 1. CARREGAMENTO ============ -->
+    <section id="carregamento" class="tela tela-carregamento" aria-label="Carregando o VozVer">
+        <img src="img/logo-escuro.png" class="logo-carregamento" alt="Logo do VozVer">
+    </section>
+
+    <!-- ============ 2. BOAS-VINDAS ============ -->
+    <!-- A tela inteira é um botão: o primeiro toque libera a voz do VozVer -->
+    <section id="boas_vindas" class="tela">
+        <button id="botao-comecar" class="tela-toda-botao" type="button"
+                aria-label="Olá! Bem-vindo ao VozVer. Toque em qualquer lugar da tela para começar.">
+            <h1 class="ola">Olá</h1>
+            <img src="img/logo-claro.png" class="logo-tema logo-boas-vindas" alt="">
+            <span class="dica-comecar">Toque na tela para começar</span>
+        </button>
+    </section>
+
+    <!-- ============ 3. PREPARE SEU VOZVER (só na 1ª vez) ============ -->
+    <section id="prepare" class="tela">
+        <h1 class="titulo-prepare" tabindex="-1">Prepare seu VozVer</h1>
+        <div class="botoes-prepare">
+            <button id="botao-personalizar" class="botao-prepare botao-escuro" type="button"
+                    aria-describedby="dica-personalizar">
+                Personalize sua experiência
+            </button>
+            <span id="dica-personalizar" class="so-leitor">Abre os ajustes de tema, fonte e voz</span>
+
+            <button id="botao-comecar-agora" class="botao-prepare botao-azul" type="button">
+                Começar agora
+            </button>
+        </div>
+    </section>
+
+    <!-- ============ 4. MENU ============ -->
+    <section id="menu" class="tela">
+        <div class="conteudo">
+            <h1 class="so-leitor" tabindex="-1">VozVer, menu</h1>
+            <img src="img/logo-claro.png" class="logo-tema logo-menu" alt="">
+
+            <!-- data-tela: para onde o botão leva. data-explicacao: o que o app fala no 1º toque -->
+            <button class="cartao-menu" type="button" data-tela="busca"
+                    data-explicacao="Diga o nome do produto e ouça em qual corredor ele fica.">
+                <span class="icone" data-icone="microfone" data-tamanho="90"></span>
+                <span class="nome-menu">Buscar por voz</span>
+            </button>
+
+            <button class="cartao-menu" type="button" data-tela="ler_codigo"
+                    data-explicacao="Aponte a câmera para o código e ouça o produto e o preço.">
+                <span class="icone" data-icone="camera" data-tamanho="90"></span>
+                <span class="nome-menu">Ler código de barras</span>
+            </button>
+
+            <button class="cartao-menu" type="button" data-tela="ajustes"
+                    data-explicacao="Mude o tema, o tamanho da letra e a velocidade da voz.">
+                <span class="icone" data-icone="engrenagem" data-tamanho="90"></span>
+                <span class="nome-menu">Ajustes</span>
+            </button>
+        </div>
+
+        <!-- Pílula de confirmação: aparece depois do 1º toque, sempre embaixo -->
+        <button id="pilula" class="pilula" type="button" hidden>
+            <span id="pilula-nome" class="pilula-nome"></span>
+            <span class="pilula-texto">Toque aqui para abrir ›</span>
+        </button>
+    </section>
+
+    <!-- ============ 5. AJUSTES ============ -->
+    <section id="ajustes" class="tela">
+        <div class="conteudo">
+            <h1 class="titulo" tabindex="-1">AJUSTES</h1>
+
+            <button id="botao-tema" class="cartao-ajuste" type="button">
+                <span class="icone" data-icone="sol" data-tamanho="90"></span>
+                <span id="texto-tema" class="texto-ajuste">Claro</span>
+            </button>
+
+            <button class="cartao-ajuste" type="button" data-ir="fonte" aria-describedby="dica-fonte">
+                <span class="aa-desenho" aria-hidden="true">Aa</span>
+                <span class="texto-ajuste">Fonte</span>
+            </button>
+            <span id="dica-fonte" class="so-leitor">Abre o ajuste do tamanho da letra</span>
+
+            <button class="cartao-ajuste" type="button" data-ir="voz" aria-describedby="dica-voz">
+                <span class="icone" data-icone="voz" data-tamanho="84"></span>
+                <span class="texto-ajuste">Voz</span>
+            </button>
+            <span id="dica-voz" class="so-leitor">Abre o ajuste da velocidade da voz</span>
+
+            <a href="#politica" class="link">Política de Privacidade</a>
+        </div>
+        <button class="botao-voltar" type="button">VOLTAR</button>
+    </section>
+
+    <!-- ============ 6. FONTE ============ -->
+    <section id="fonte" class="tela">
+        <div class="conteudo espalhado">
+            <h1 class="titulo" tabindex="-1">FONTE</h1>
+            <p class="exemplo-fonte" aria-hidden="true">Aa</p>
+            <!-- input range = barra deslizante pronta do HTML (o leitor de tela já sabe usar) -->
+            <input id="barra-fonte" class="barra" type="range" min="0" max="4" step="1"
+                   aria-label="Tamanho da letra">
+        </div>
+        <button class="botao-voltar" type="button">VOLTAR</button>
+    </section>
+
+    <!-- ============ 7. VOZ ============ -->
+    <section id="voz" class="tela">
+        <div class="conteudo espalhado">
+            <h1 class="titulo" tabindex="-1">VOZ</h1>
+            <span class="icone desenho-voz" data-icone="voz" data-tamanho="150"></span>
+            <input id="barra-voz" class="barra" type="range" min="0" max="4" step="1"
+                   aria-label="Velocidade da voz">
+        </div>
+        <button class="botao-voltar" type="button">VOLTAR</button>
+    </section>
+
+    <!-- ============ 8. LER CÓDIGO DE BARRAS ============ -->
+    <section id="ler_codigo" class="tela tela-camera">
+        <h1 class="so-leitor" tabindex="-1">Ler código de barras</h1>
+
+        <div class="area-camera">
+            <!-- playsinline: no iPhone o vídeo fica dentro da página, sem abrir em tela cheia -->
+            <video id="video-camera" class="video-camera" playsinline muted aria-hidden="true"></video>
+            <span class="canto cima-esquerda"></span>
+            <span class="canto cima-direita"></span>
+            <span class="canto baixo-esquerda"></span>
+            <span class="canto baixo-direita"></span>
+            <span class="icone brilho brilho-cima" data-icone="brilho" data-tamanho="30"></span>
+            <span class="icone brilho brilho-baixo" data-icone="brilho" data-tamanho="30"></span>
+
+            <!-- Aparece só se a câmera não ligar -->
+            <div id="sem-camera" class="sem-camera" hidden>
+                <p id="sem-camera-texto">Não consegui ligar a câmera.</p>
+                <button id="botao-ligar-camera" class="botao-pequeno" type="button">Ligar câmera</button>
+            </div>
+        </div>
+
+        <!-- Elipse do topo com o ícone da câmera (igual ao Figma) -->
+        <div class="circulo-camera" aria-hidden="true">
+            <span class="icone" data-icone="camera" data-tamanho="80"></span>
+        </div>
+
+        <div class="painel">
+            <!-- Cartão do produto: preenchido pelo js/telas/ler_codigo.js -->
+            <div id="cartao-produto" class="cartao-produto" hidden></div>
+
+            <!-- Para testar sem câmera (ou se o código estiver estragado) -->
+            <details class="digitar-codigo">
+                <summary>Digitar o código</summary>
+                <form id="form-codigo" class="linha-form">
+                    <label for="campo-codigo" class="so-leitor">Número do código de barras</label>
+                    <input id="campo-codigo" type="text" inputmode="numeric" autocomplete="off"
+                           placeholder="Ex.: 7890000000011">
+                    <button class="botao-pequeno" type="submit">Buscar</button>
+                </form>
+            </details>
+
+            <button class="botao-voltar" type="button">VOLTAR</button>
+        </div>
+    </section>
+
+    <!-- ============ 9. COMPARAR PREÇOS (a balança) ============ -->
+    <section id="comparar" class="tela">
+        <div class="conteudo">
+            <h1 class="titulo" tabindex="-1">COMPARAR</h1>
+            <p id="comparar-subtitulo" class="subtitulo"></p>
+            <ol id="lista-comparar" class="lista-produtos"></ol>
+        </div>
+        <button class="botao-voltar" type="button">VOLTAR</button>
+    </section>
+
+    <!-- ============ 10. BUSCAR POR VOZ ============ -->
+    <section id="busca" class="tela">
+        <div class="conteudo">
+            <h1 class="titulo" tabindex="-1">BUSCAR</h1>
+
+            <button id="botao-microfone" class="botao-microfone" type="button" aria-pressed="false">
+                <span class="icone" data-icone="microfone" data-tamanho="80"></span>
+                <span id="texto-microfone" class="texto-microfone">Toque e fale o produto</span>
+            </button>
+
+            <form id="form-busca" class="linha-form">
+                <label for="campo-busca" class="so-leitor">Nome do produto</label>
+                <input id="campo-busca" type="search" autocomplete="off" placeholder="Ou digite: arroz, café...">
+                <button class="botao-pequeno" type="submit">Buscar</button>
+            </form>
+
+            <p id="busca-resumo" class="subtitulo" aria-live="polite"></p>
+            <ul id="lista-busca" class="lista-produtos"></ul>
+        </div>
+        <button class="botao-voltar" type="button">VOLTAR</button>
+    </section>
+
+    <!-- ============ 11. POLÍTICA DE PRIVACIDADE ============ -->
+    <section id="politica" class="tela">
+        <div class="conteudo texto-longo">
+            <h1 class="titulo" tabindex="-1">Política de Privacidade</h1>
+            <p class="versao">Versão 2.0 · Atualizada em 16/11/2026</p>
+
+            <h2>Em resumo</h2>
+            <ul>
+                <li>Você usa o VozVer sem criar conta, sem senha e sem e-mail.</li>
+                <li>A câmera e o microfone só funcionam quando você permite, e você pode desligar quando quiser.</li>
+                <li>Nós não vendemos os seus dados.</li>
+            </ul>
+
+            <h2>1. Quem somos</h2>
+            <p>O VozVer é um aplicativo web (PWA) de acessibilidade que ajuda pessoas cegas ou com baixa visão a fazer compras no mercado. Ele fala em voz alta o que está na tela, lê o código de barras dos produtos e diz em qual corredor cada produto fica.</p>
+            <p>O projeto foi criado por estudantes do curso Pró-Profissão (Instituto PROA em parceria com o SENAC), como projeto de Demoday. A equipe do VozVer é a controladora dos dados, conforme a Lei Geral de Proteção de Dados (LGPD, Lei nº 13.709/2018).</p>
+
+            <h2>2. Quais dados usamos</h2>
+            <ul>
+                <li><strong>Leitor de código de barras:</strong> a câmera procura o código no próprio aparelho. Só o número lido é enviado ao servidor do VozVer, para buscar o produto. As imagens não são enviadas nem guardadas.</li>
+                <li><strong>Busca por voz:</strong> o reconhecimento da sua voz é feito pelo navegador do seu aparelho, que pode usar um serviço do fabricante do navegador. O texto reconhecido é enviado ao servidor do VozVer só para buscar o produto.</li>
+                <li><strong>Ajustes:</strong> tema, tamanho da letra e velocidade da voz ficam salvos só no seu aparelho.</li>
+                <li><strong>Hospedagem:</strong> a plataforma que hospeda o site pode registrar dados técnicos de acesso, como endereço IP, tipo de navegador, data e hora.</li>
+            </ul>
+            <p>Não pedimos nome, CPF, telefone, endereço, senha nem dados de pagamento.</p>
+
+            <h2>3. Para que usamos e por qual motivo legal</h2>
+            <ul>
+                <li><strong>Executar o serviço que você pediu</strong> (art. 7º, V): usar a câmera e o microfone para encontrar produtos.</li>
+                <li><strong>Seu consentimento</strong> (art. 7º, I): quando o navegador pergunta se o VozVer pode usar a câmera ou o microfone. Você pode retirar essa permissão a qualquer momento nas configurações do navegador.</li>
+                <li><strong>Nosso legítimo interesse</strong> (art. 7º, IX): manter o site funcionando e seguro.</li>
+            </ul>
+            <p>Não usamos os dados para propaganda nem para criar um perfil sobre você.</p>
+
+            <h2>4. Com quem compartilhamos</h2>
+            <p>Não vendemos nem alugamos dados. Podem participar do funcionamento do VozVer: o navegador do seu aparelho (no reconhecimento de voz), a plataforma de hospedagem e, se a lei ou uma ordem judicial exigir, as autoridades.</p>
+
+            <h2>5. Por quanto tempo guardamos</h2>
+            <ul>
+                <li><strong>Imagens e áudio:</strong> usados na hora e não guardados.</li>
+                <li><strong>Ajustes:</strong> ficam no seu aparelho até você limpar os dados do navegador.</li>
+                <li><strong>Registros técnicos:</strong> seguem o prazo da plataforma de hospedagem.</li>
+            </ul>
+
+            <h2>6. Seus direitos</h2>
+            <p>A LGPD (art. 18) garante que você pode pedir, a qualquer momento e de graça: acesso aos seus dados, correção, eliminação, portabilidade, informação sobre compartilhamento e a retirada do consentimento. Se achar que seus direitos não foram respeitados, você pode reclamar à Autoridade Nacional de Proteção de Dados (ANPD), em gov.br/anpd.</p>
+
+            <h2>7. Como protegemos seus dados</h2>
+            <p>O VozVer usa conexão segura (HTTPS), coleta poucos dados e só liga a câmera e o microfone com a sua permissão. Se houver um incidente que possa causar risco a você, vamos avisar você e a ANPD, como a lei determina.</p>
+
+            <h2>8. Mudanças nesta política</h2>
+            <p>O VozVer ainda está em desenvolvimento. Quando um recurso novo mudar o uso de dados, vamos atualizar esta página e a data no topo.</p>
+
+            <h2>9. Fale com a gente</h2>
+            <p>E-mail: vozvercontato@gmail.com<br>
+               Responsável pela proteção de dados: [nome do integrante responsável]<br>
+               Equipe VozVer: Alexsandra, Daniel, Gabriel, Isabella, Laryssa, Melissa e Samuel.</p>
+        </div>
+        <button class="botao-voltar" type="button">VOLTAR</button>
+    </section>
+
+    <!-- ============ SCRIPTS ============
+         A ordem importa: primeiro as ferramentas, depois as telas, por último o app.js que liga tudo. -->
+    <script src="vendor/barcode-detector.js"></script>
+    <script src="js/icones.js"></script>
+    <script src="js/ajustes.js"></script>
+    <script src="js/navegacao.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/telas/inicio.js"></script>
+    <script src="js/telas/menu.js"></script>
+    <script src="js/telas/ajustes.js"></script>
+    <script src="js/telas/ler_codigo.js"></script>
+    <script src="js/telas/comparar.js"></script>
+    <script src="js/telas/busca.js"></script>
+    <script src="js/telas/politica.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
