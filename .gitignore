@@ -1,0 +1,6 @@
+# Ambiente do Python (cada pessoa cria o seu)
+.venv/
+__pycache__/
+
+# Senhas do banco: nunca vão para o GitHub
+.env
