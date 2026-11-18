@@ -1,4 +1,4 @@
-// ===== Telas do começo: Carregamento, Boas-vindas e Prepare seu VozVer =====
+// ===== Telas do começo: Carregamento, Boas-vindas e Prepare seu vozver =====
 
 // ---------- 1. Carregamento ----------
 // Fundo azul-marinho com o logo piscando (a piscada é feita no CSS).
@@ -22,12 +22,12 @@ registrarTela('carregamento', {
 registrarTela('boas_vindas', {
     aoAbrir() {
         // Se o navegador deixar, já fala; se não deixar, fala no primeiro toque
-        falar('Olá! Bem-vindo ao VozVer. Toque em qualquer lugar da tela para começar.');
+        falar('Olá! Bem-vindo ao vozver. Toque em qualquer lugar da tela para começar.');
     },
 });
 
 document.getElementById('botao-comecar').addEventListener('click', () => {
-    // Primeira vez no app: mostra "Prepare seu VozVer". Nas outras: vai direto ao menu.
+    // Primeira vez no app: mostra "Prepare seu vozver". Nas outras: vai direto ao menu.
     if (config.jaConfigurou) {
         trocarPara('menu');
     } else {
@@ -35,10 +35,10 @@ document.getElementById('botao-comecar').addEventListener('click', () => {
     }
 });
 
-// ---------- 3. Prepare seu VozVer (só na primeira vez) ----------
+// ---------- 3. Prepare seu vozver (só na primeira vez) ----------
 registrarTela('prepare', {
     aoAbrir() {
-        falar('Prepare seu VozVer. Primeiro botão: personalize sua experiência. Segundo botão: começar agora.');
+        falar('Prepare seu vozver. Primeiro botão: personalize sua experiência. Segundo botão: começar agora.');
     },
 });
 

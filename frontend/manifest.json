@@ -1,6 +1,6 @@
 {
-    "name": "VozVer",
-    "short_name": "VozVer",
+    "name": "vozver",
+    "short_name": "vozver",
     "description": "Ouça, Encontre, Escolha. App de acessibilidade para compras no mercado.",
     "lang": "pt-BR",
     "start_url": "./",

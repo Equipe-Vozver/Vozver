@@ -1,4 +1,4 @@
-/* ===== Visual do VozVer =====
+/* ===== Visual do vozver =====
    As cores e medidas vêm do Figma do grupo (Interface-VozVer).
    As cores ficam em VARIÁVEIS (--fundo, --texto...). Para o tema escuro,
    só trocamos o valor das variáveis: o resto do CSS continua igual.
@@ -224,7 +224,7 @@ button {
     50% { opacity: 0.45; }
 }
 
-/* ---------- 3. Prepare seu VozVer ---------- */
+/* ---------- 3. Prepare seu vozver ---------- */
 #prepare {
     padding: 91px 17px 0;
 }

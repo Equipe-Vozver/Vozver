@@ -1,5 +1,5 @@
 # =====================================================================
-# Servidor do VozVer (Python + FastAPI)
+# Servidor do vozver (Python + FastAPI)
 #
 # Ele faz duas coisas:
 #   1) API: responde os produtos em JSON (rotas que começam com /api)
@@ -9,7 +9,7 @@
 # Para rodar (dentro da pasta backend, com o .venv ativado):
 #     uvicorn main:app --reload --host 0.0.0.0
 # Depois abra no navegador:
-#     http://localhost:8000        -> o VozVer
+#     http://localhost:8000        -> o vozver
 #     http://localhost:8000/docs   -> a página para testar a API
 # =====================================================================
 
@@ -30,13 +30,13 @@ PASTA_DO_SITE = Path(__file__).parent.parent / "frontend"
 # Frase falada quando o produto não está cadastrado
 NAO_ENCONTRADO = "Não consegui identificar o produto. Vamos tentar de novo?"
 
-app = FastAPI(title="API VozVer")
+app = FastAPI(title="API vozver")
 
 
 @app.get("/api")
 def inicio():
     """Rota de teste: se aparecer esta mensagem, a API está no ar."""
-    return {"mensagem": "API do VozVer funcionando"}
+    return {"mensagem": "API do vozver funcionando"}
 
 
 @app.get("/api/produtos/codigo/{codigo}")

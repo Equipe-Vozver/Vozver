@@ -1,5 +1,5 @@
 -- =====================================================================
--- Banco de dados do VozVer (MySQL 8)
+-- Banco de dados do vozver (MySQL 8)
 -- Feito a partir do modelo lógico do grupo (Desktop/VOZVER/Lógico_vozver.brM3).
 --
 -- Como usar: abra este arquivo no MySQL Workbench e clique no raio (⚡)

@@ -1,15 +1,15 @@
 <!doctype html>
-<!-- ===== VozVer (PWA) =====
+<!-- ===== vozver (PWA) =====
      Um arquivo só com todas as telas. Cada <section class="tela"> é uma tela.
      O JavaScript mostra uma tela por vez (js/navegacao.js).
      Por que tudo num arquivo só? Porque o navegador só deixa o site falar
      depois do primeiro toque, e esse "toque" vale só enquanto a página não recarrega.
-     Trocando de tela sem recarregar, o VozVer pode falar sozinho em todas as telas. -->
+     Trocando de tela sem recarregar, o vozver pode falar sozinho em todas as telas. -->
 <html lang="pt-BR">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>VozVer</title>
+    <title>vozver</title>
     <meta name="description" content="Ouça, Encontre, Escolha. App de acessibilidade para compras no mercado.">
 
     <!-- Parte "PWA": nome, ícone e cor para instalar no celular -->
@@ -23,15 +23,15 @@
 <body data-tema="claro">
 
     <!-- ============ 1. CARREGAMENTO ============ -->
-    <section id="carregamento" class="tela tela-carregamento" aria-label="Carregando o VozVer">
-        <img src="img/logo-escuro.png" class="logo-carregamento" alt="Logo do VozVer">
+    <section id="carregamento" class="tela tela-carregamento" aria-label="Carregando o vozver">
+        <img src="img/logo-escuro.png" class="logo-carregamento" alt="Logo do vozver">
     </section>
 
     <!-- ============ 2. BOAS-VINDAS ============ -->
-    <!-- A tela inteira é um botão: o primeiro toque libera a voz do VozVer -->
+    <!-- A tela inteira é um botão: o primeiro toque libera a voz do vozver -->
     <section id="boas_vindas" class="tela">
         <button id="botao-comecar" class="tela-toda-botao" type="button"
-                aria-label="Olá! Bem-vindo ao VozVer. Toque em qualquer lugar da tela para começar.">
+                aria-label="Olá! Bem-vindo ao vozver. Toque em qualquer lugar da tela para começar.">
             <h1 class="ola">Olá</h1>
             <img src="img/logo-claro.png" class="logo-tema logo-boas-vindas" alt="">
             <span class="dica-comecar">Toque na tela para começar</span>
@@ -40,7 +40,7 @@
 
     <!-- ============ 3. PREPARE SEU VOZVER (só na 1ª vez) ============ -->
     <section id="prepare" class="tela">
-        <h1 class="titulo-prepare" tabindex="-1">Prepare seu VozVer</h1>
+        <h1 class="titulo-prepare" tabindex="-1">Prepare seu vozver</h1>
         <div class="botoes-prepare">
             <button id="botao-personalizar" class="botao-prepare botao-escuro" type="button"
                     aria-describedby="dica-personalizar">
@@ -57,7 +57,7 @@
     <!-- ============ 4. MENU ============ -->
     <section id="menu" class="tela">
         <div class="conteudo">
-            <h1 class="so-leitor" tabindex="-1">VozVer, menu</h1>
+            <h1 class="so-leitor" tabindex="-1">vozver, menu</h1>
             <img src="img/logo-claro.png" class="logo-tema logo-menu" alt="">
 
             <!-- data-tela: para onde o botão leva. data-explicacao: o que o app fala no 1º toque -->
@@ -218,39 +218,39 @@
     <section id="politica" class="tela">
         <div class="conteudo texto-longo">
             <h1 class="titulo" tabindex="-1">Política de Privacidade</h1>
-            <p class="versao">Versão 2.0 · Atualizada em 16/11/2026</p>
+            <p class="versao">Versão 2.1 · Atualizada em 17/11/2026</p>
 
             <h2>Em resumo</h2>
             <ul>
-                <li>Você usa o VozVer sem criar conta, sem senha e sem e-mail.</li>
+                <li>Você usa o vozver sem criar conta, sem senha e sem e-mail.</li>
                 <li>A câmera e o microfone só funcionam quando você permite, e você pode desligar quando quiser.</li>
                 <li>Nós não vendemos os seus dados.</li>
             </ul>
 
             <h2>1. Quem somos</h2>
-            <p>O VozVer é um aplicativo web (PWA) de acessibilidade que ajuda pessoas cegas ou com baixa visão a fazer compras no mercado. Ele fala em voz alta o que está na tela, lê o código de barras dos produtos e diz em qual corredor cada produto fica.</p>
-            <p>O projeto foi criado por estudantes do curso Pró-Profissão (Instituto PROA em parceria com o SENAC), como projeto de Demoday. A equipe do VozVer é a controladora dos dados, conforme a Lei Geral de Proteção de Dados (LGPD, Lei nº 13.709/2018).</p>
+            <p>O vozver é um aplicativo web (PWA) de acessibilidade que ajuda pessoas cegas ou com baixa visão a fazer compras no mercado. Ele fala em voz alta o que está na tela, lê o código de barras dos produtos e diz em qual corredor cada produto fica.</p>
+            <p>O projeto foi criado por estudantes do curso Pró-Profissão (Instituto PROA em parceria com o SENAC), como projeto de Demoday. A equipe do vozver é a controladora dos dados, conforme a Lei Geral de Proteção de Dados (LGPD, Lei nº 13.709/2018).</p>
 
             <h2>2. Quais dados usamos</h2>
             <ul>
-                <li><strong>Leitor de código de barras:</strong> a câmera procura o código no próprio aparelho. Só o número lido é enviado ao servidor do VozVer, para buscar o produto. As imagens não são enviadas nem guardadas.</li>
-                <li><strong>Busca por voz:</strong> o reconhecimento da sua voz é feito pelo navegador do seu aparelho, que pode usar um serviço do fabricante do navegador. O texto reconhecido é enviado ao servidor do VozVer só para buscar o produto.</li>
+                <li><strong>Leitor de código de barras:</strong> a câmera procura o código no próprio aparelho. Só o número lido é enviado ao servidor do vozver, para buscar o produto. As imagens não são enviadas nem guardadas.</li>
+                <li><strong>Busca por voz:</strong> o reconhecimento da sua voz é feito pelo navegador do seu aparelho. No Google Chrome, o áudio é enviado ao Google para virar texto, seguindo a política de privacidade do Google. O vozver não recebe nem guarda o áudio: só o texto reconhecido é enviado ao servidor do vozver, para buscar o produto.</li>
                 <li><strong>Ajustes:</strong> tema, tamanho da letra e velocidade da voz ficam salvos só no seu aparelho.</li>
-                <li><strong>Hospedagem:</strong> a plataforma que hospeda o site pode registrar dados técnicos de acesso, como endereço IP, tipo de navegador, data e hora.</li>
+                <li><strong>Hospedagem:</strong> o site fica hospedado no Render (render.com), uma empresa com servidores fora do Brasil. Ela pode registrar dados técnicos de acesso, como endereço IP, tipo de navegador, data e hora.</li>
             </ul>
             <p>Não pedimos nome, CPF, telefone, endereço, senha nem dados de pagamento.</p>
 
             <h2>3. Para que usamos e por qual motivo legal</h2>
             <ul>
                 <li><strong>Executar o serviço que você pediu</strong> (art. 7º, V): usar a câmera e o microfone para encontrar produtos.</li>
-                <li><strong>Seu consentimento</strong> (art. 7º, I): quando o navegador pergunta se o VozVer pode usar a câmera ou o microfone. Você pode retirar essa permissão a qualquer momento nas configurações do navegador.</li>
+                <li><strong>Seu consentimento</strong> (art. 7º, I): quando o navegador pergunta se o vozver pode usar a câmera ou o microfone. Você pode retirar essa permissão a qualquer momento nas configurações do navegador.</li>
                 <li><strong>Nosso legítimo interesse</strong> (art. 7º, IX): manter o site funcionando e seguro.</li>
             </ul>
             <p>Não usamos os dados para propaganda nem para criar um perfil sobre você.</p>
 
             <h2>4. Com quem compartilhamos</h2>
-            <p>Não vendemos nem alugamos dados. Podem participar do funcionamento do VozVer: o navegador do seu aparelho (no reconhecimento de voz), a plataforma de hospedagem e, se a lei ou uma ordem judicial exigir, as autoridades.</p>
-
+            <p>Não vendemos nem alugamos dados. Podem participar do funcionamento do vozver: o navegador do seu aparelho (no Chrome, o Google faz o reconhecimento de voz), a plataforma de hospedagem Render e, se a lei ou uma ordem judicial exigir, as autoridades.</p>
+            <p><strong>Dados fora do Brasil:</strong> como o Google e o Render têm servidores em outros países, alguns dados técnicos podem ser tratados fora do Brasil. Isso acontece só para o serviço funcionar e segue as regras da LGPD para transferência internacional (art. 33).</p>
             <h2>5. Por quanto tempo guardamos</h2>
             <ul>
                 <li><strong>Imagens e áudio:</strong> usados na hora e não guardados.</li>
@@ -262,15 +262,15 @@
             <p>A LGPD (art. 18) garante que você pode pedir, a qualquer momento e de graça: acesso aos seus dados, correção, eliminação, portabilidade, informação sobre compartilhamento e a retirada do consentimento. Se achar que seus direitos não foram respeitados, você pode reclamar à Autoridade Nacional de Proteção de Dados (ANPD), em gov.br/anpd.</p>
 
             <h2>7. Como protegemos seus dados</h2>
-            <p>O VozVer usa conexão segura (HTTPS), coleta poucos dados e só liga a câmera e o microfone com a sua permissão. Se houver um incidente que possa causar risco a você, vamos avisar você e a ANPD, como a lei determina.</p>
+            <p>O vozver usa conexão segura (HTTPS), coleta poucos dados e só liga a câmera e o microfone com a sua permissão. Se houver um incidente que possa causar risco a você, vamos avisar você e a ANPD, como a lei determina.</p>
 
             <h2>8. Mudanças nesta política</h2>
-            <p>O VozVer ainda está em desenvolvimento. Quando um recurso novo mudar o uso de dados, vamos atualizar esta página e a data no topo.</p>
+            <p>O vozver ainda está em desenvolvimento. Quando um recurso novo mudar o uso de dados, vamos atualizar esta página e a data no topo.</p>
 
             <h2>9. Fale com a gente</h2>
             <p>E-mail: vozvercontato@gmail.com<br>
-               Responsável pela proteção de dados: [nome do integrante responsável]<br>
-               Equipe VozVer: Alexsandra, Daniel, Gabriel, Isabella, Laryssa, Melissa e Samuel.</p>
+               Responsável pela proteção de dados: Equipe vozver<br>
+               Equipe vozver: Alexsandra, Daniel, Gabriel, Isabella, Laryssa, Melissa e Samuel.</p>
         </div>
         <button class="botao-voltar" type="button">VOLTAR</button>
     </section>

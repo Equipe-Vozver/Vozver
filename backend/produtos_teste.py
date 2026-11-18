@@ -1,5 +1,5 @@
 # =====================================================================
-# Produtos de teste do VozVer
+# Produtos de teste do vozver
 #
 # Enquanto o banco MySQL ainda não tem preço e corredor, a API usa esta lista.
 # Os campos aqui (preco, corredor...) são os que o banco vai precisar ter.

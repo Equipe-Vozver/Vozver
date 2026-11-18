@@ -1,4 +1,4 @@
-// ===== Ícones do VozVer =====
+// ===== Ícones do vozver =====
 // Os desenhos vêm do Figma do grupo (Interface-VozVer), exportados em SVG.
 // SVG é um desenho feito de linhas e curvas: fica nítido em qualquer tamanho
 // e a cor muda sozinha com o tema (fill="currentColor" usa a cor do texto).

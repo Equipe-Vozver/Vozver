@@ -24,7 +24,7 @@ registrarTela('comparar', {
         try {
             lista = await buscarProdutosDaCategoria(categoria);
         } catch (erro) {
-            falar('Não consegui falar com o servidor do VozVer. Confira a internet.');
+            falar('Não consegui falar com o servidor do vozver. Confira a internet.');
             return;
         }
 

@@ -1,4 +1,4 @@
-# VozVer (PWA)
+# vozver (PWA)
 
 App web de acessibilidade para pessoas com deficiência visual fazerem compras no mercado: o celular fala o que está na tela, lê o código de barras dos produtos e diz em qual corredor cada um fica. *Ouça, Encontre, Escolha.*
 
@@ -19,7 +19,7 @@ uvicorn main:app --reload --host 0.0.0.0
 ```
 
 Depois abra:
-- **http://localhost:8000**: o VozVer
+- **http://localhost:8000**: o vozver
 - **http://localhost:8000/docs**: a página para testar a API
 
 Códigos de barras para testar (campo "Digitar o código", na tela da câmera):
@@ -56,7 +56,7 @@ PWA VozVer/
 
 1. **Carregamento**: logo piscando
 2. **Boas-vindas**: "Olá". O primeiro toque libera a voz (regra do navegador)
-3. **Prepare seu VozVer**: só na primeira vez
+3. **Prepare seu vozver**: só na primeira vez
 4. **Menu**: 3 botões com confirmação em dois toques
 5. **Ajustes**: tema claro/escuro, **Fonte** e **Voz**
 6. **Ler código de barras**: câmera + cartão do produto (ouvir detalhes, comparar, ler outro)
