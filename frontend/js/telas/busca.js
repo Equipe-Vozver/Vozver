@@ -75,7 +75,7 @@ botaoMicrofone.addEventListener('click', () => {
 
     reconhecedor.onerror = (evento) => {
         if (evento.error === 'not-allowed') {
-            falar('O VozVer precisa do microfone. Permita o uso do microfone no navegador, ou digite o produto.');
+            falar('O vozver precisa do microfone. Permita o uso do microfone no navegador, ou digite o produto.');
         } else if (evento.error === 'no-speech') {
             falar('Não ouvi nada. Toque no microfone e fale de novo.');
         } else if (evento.error !== 'aborted') {
@@ -105,7 +105,7 @@ async function buscar(texto) {
     try {
         resultados = await buscarProdutosPorNome(texto);
     } catch (erro) {
-        falar('Não consegui falar com o servidor do VozVer. Confira a internet.');
+        falar('Não consegui falar com o servidor do vozver. Confira a internet.');
         return;
     }
 

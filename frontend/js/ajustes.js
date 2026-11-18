@@ -1,4 +1,4 @@
-// ===== Ajustes do VozVer e a voz =====
+// ===== Ajustes do vozver e a voz =====
 // Aqui ficam:
 //   - as escolhas da pessoa (tema, tamanho da letra, velocidade da voz), salvas no celular;
 //   - a função falar(), que lê um texto em voz alta.
@@ -14,7 +14,7 @@ const configPadrao = {
     tema: 'claro',          // 'claro' ou 'escuro'
     nivelFonte: 1,          // posição da barra de Fonte (0 a 4)
     nivelVoz: 2,            // posição da barra de Voz (0 a 4)
-    jaConfigurou: false,    // false = mostra a tela "Prepare seu VozVer"
+    jaConfigurou: false,    // false = mostra a tela "Prepare seu vozver"
 };
 
 // Nome usado para guardar as escolhas no navegador

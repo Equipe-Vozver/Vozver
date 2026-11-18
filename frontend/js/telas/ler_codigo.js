@@ -78,7 +78,7 @@ async function ligarCamera() {
         }
     } catch (erro) {
         if (erro.name === 'NotAllowedError') {
-            mostrarSemCamera('O VozVer precisa usar a câmera. Toque em Ligar câmera e depois em Permitir.');
+            mostrarSemCamera('O vozver precisa usar a câmera. Toque em Ligar câmera e depois em Permitir.');
         } else {
             mostrarSemCamera('Não consegui ligar a câmera. Toque em Ligar câmera para tentar de novo.');
         }
@@ -145,7 +145,7 @@ async function mostrarProdutoDoCodigo(codigo, digitado = false) {
     try {
         produto = await buscarProdutoPorCodigo(codigo);
     } catch (erro) {
-        falar('Não consegui falar com o servidor do VozVer. Confira a internet.');
+        falar('Não consegui falar com o servidor do vozver. Confira a internet.');
         if (!digitado) {
             setTimeout(voltarALer, 3000);
         }

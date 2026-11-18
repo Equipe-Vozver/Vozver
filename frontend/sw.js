@@ -1,4 +1,4 @@
-// ===== Service worker do VozVer =====
+// ===== Service worker do vozver =====
 // Ele fica "entre" o site e a internet e guarda uma cópia dos arquivos no celular.
 // Assim o app abre mais rápido e, sem internet, ainda mostra as telas.
 // Regra simples: tenta a internet primeiro; se não der, usa a cópia guardada.
