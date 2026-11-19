@@ -33,8 +33,8 @@ Códigos de barras para testar (campo "Digitar o código", na tela da câmera):
 PWA VozVer/
 ├── frontend/                 # o site (o que aparece no celular)
 │   ├── index.html            # TODAS as telas; cada <section class="tela"> é uma tela
-│   ├── css/estilo.css        # visual do Figma (tema claro e escuro, tamanho da letra)
-│   ├── js/
+│   ├── css/                  # base.css (cores, fontes, temas) + telas/ (um arquivo por tela)
+│   ├── js/                   
 │   │   ├── ajustes.js        # escolhas salvas (tema, fonte, voz) e a função falar()
 │   │   ├── navegacao.js      # troca de telas e o botão VOLTAR
 │   │   ├── api.js            # conversa com o servidor Python (fetch)

@@ -36,7 +36,7 @@ Atualizado em 16/11/2026. Código congela em **23/11**. Demoday em **01/12**.
 O visual pode mudar. Para não quebrar nada:
 - Os arquivos ficam em `frontend/`:
   - `index.html` tem as telas;
-  - `css/estilo.css` tem as cores e tamanhos;
+  - `css/base.css` tem as cores e as regras gerais; `css/telas/` tem um arquivo por tela;
   - `js/telas/` tem uma lógica para cada tela.
 - **Não apague os `id="..."`** do HTML: o JavaScript usa eles para achar os botões.
 - Cores sempre pelas variáveis do CSS (`var(--fundo)`, `var(--texto)`...), para o tema escuro continuar funcionando.

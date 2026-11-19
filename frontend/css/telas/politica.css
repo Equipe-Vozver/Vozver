@@ -1,0 +1,39 @@
+/* ===== Política de Privacidade =====
+   O texto longo da política (títulos, parágrafos e listas).
+   */
+
+/* ---------- 11. Política de Privacidade ---------- */
+.texto-longo {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: calc(16px * var(--tamanho));
+    line-height: 1.5;
+    gap: 4px;
+}
+
+.texto-longo .titulo {
+    font-family: 'Poppins', sans-serif;
+    font-size: calc(30px * var(--tamanho));
+}
+
+.texto-longo h2 {
+    margin: 16px 0 4px;
+    font-family: 'Poppins', sans-serif;
+    font-size: calc(19px * var(--tamanho));
+}
+
+.texto-longo p,
+.texto-longo ul {
+    margin: 0;
+}
+
+.texto-longo ul {
+    padding-left: 22px;
+}
+
+.versao {
+    text-align: center;
+    font-weight: 700;
+    opacity: 0.8;
+}
+

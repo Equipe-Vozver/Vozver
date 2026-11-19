@@ -1,0 +1,104 @@
+/* ===== Ajustes, Fonte e Voz =====
+   O botão do tema e as barras deslizantes da fonte e da voz.
+   */
+
+/* ---------- 5. Ajustes ---------- */
+#ajustes .conteudo {
+    padding: 0 36px;
+    gap: 28px;
+}
+
+.cartao-ajuste {
+    min-height: 130px;
+    padding: 0 22px;
+    border-radius: 50px;
+    border: 2px solid var(--borda-cartao);
+    background: var(--cartao);
+    box-shadow: 0 7px 20px var(--sombra);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.cartao-ajuste:active {
+    background: var(--cartao-escolhido);
+}
+
+.texto-ajuste {
+    flex: 1;
+    text-align: center;
+    font-size: calc(32px * var(--tamanho));
+}
+
+.aa-desenho {
+    width: 100px;
+    text-align: center;
+    font-size: 60px;   /* fixo: é um desenho, não um texto para ler */
+}
+
+.link {
+    padding: 12px;
+    text-align: center;
+    color: var(--texto);
+    font-size: calc(16px * var(--tamanho));
+}
+
+/* ---------- 6 e 7. Fonte e Voz ---------- */
+.exemplo-fonte {
+    margin: 0;
+    text-align: center;
+    font-size: calc(96px * var(--tamanho));
+}
+
+.desenho-voz {
+    align-self: center;
+}
+
+/* Barra deslizante: trilho de 50px e bolinha de 91px, como no Figma.
+   --porcento (0% a 100%) é colocado pelo JS e pinta a parte cheia do trilho. */
+.barra {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 91px;
+    background: transparent;
+    --porcento: 50%;
+}
+
+.barra::-webkit-slider-runnable-track {
+    height: 50px;
+    border-radius: 25px;
+    border: 2px solid var(--borda-trilho);
+    background: linear-gradient(to right, var(--preenchido) var(--porcento), var(--trilho) var(--porcento));
+}
+
+.barra::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 91px;
+    height: 91px;
+    margin-top: -22.5px;   /* centraliza a bolinha no trilho: (50 - 91) / 2 - 2 da borda */
+    border-radius: 50%;
+    background: var(--preenchido);
+    border: 3px solid var(--fundo);
+}
+
+.barra::-moz-range-track {
+    height: 50px;
+    border-radius: 25px;
+    border: 2px solid var(--borda-trilho);
+    background: var(--trilho);
+}
+
+.barra::-moz-range-progress {
+    height: 50px;
+    border-radius: 25px;
+    background: var(--preenchido);
+}
+
+.barra::-moz-range-thumb {
+    width: 91px;
+    height: 91px;
+    border-radius: 50%;
+    background: var(--preenchido);
+    border: 3px solid var(--fundo);
+}

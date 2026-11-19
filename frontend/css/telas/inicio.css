@@ -1,0 +1,95 @@
+/*Telas do começo: Carregamento, Boas-vindas e Prepare seu vozver =====
+    */
+
+/* ---------- 1. Carregamento ---------- */
+.tela-carregamento {
+    background: var(--fundo-carregamento);
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-carregamento {
+    width: 200px;
+    animation: piscar 1.5s infinite;
+}
+
+/* O olho fecha rápido e abre de novo */
+@keyframes piscar {
+    0%, 40% { transform: scaleY(1); }
+    50% { transform: scaleY(0.08); }
+    60%, 100% { transform: scaleY(1); }
+}
+
+/* ---------- 2. Boas-vindas ---------- */
+.tela-toda-botao {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding-bottom: 80px;
+    background: var(--fundo);
+}
+
+.ola {
+    margin: 0;
+    font-size: calc(48px * var(--tamanho));
+    font-weight: 700;
+}
+
+.logo-boas-vindas {
+    width: 230px;
+}
+
+.dica-comecar {
+    font-weight: 500;
+    font-size: calc(20px * var(--tamanho));
+    animation: pulsar 2s infinite;
+}
+
+@keyframes pulsar {
+    50% { opacity: 0.45; }
+}
+
+/* ---------- 3. Prepare seu vozver ---------- */
+#prepare {
+    padding: 91px 17px 0;
+}
+
+.titulo-prepare {
+    margin: 0;
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: calc(32px * var(--tamanho));
+}
+
+.botoes-prepare {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 13px;
+    padding-bottom: 180px;
+}
+
+.botao-prepare {
+    min-height: 84px;
+    padding: 12px;
+    border-radius: 20px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: calc(24px * var(--tamanho));
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.botao-escuro {
+    background: var(--botao);
+    color: var(--sobre-botao);
+}
+
+.botao-azul {
+    background: var(--azul-forte);
+    color: var(--branco);
+}

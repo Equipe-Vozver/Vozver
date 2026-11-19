@@ -1,0 +1,31 @@
+/* ===== Buscar por voz =====
+   O botão do microfone e o campo de busca. A lista de resultados está no base.css.
+   Combina com js/telas/busca.js. */
+
+/* ---------- 10. Buscar por voz ---------- */
+.botao-microfone {
+    min-height: 165px;
+    border-radius: 35px;
+    border: 2px solid var(--borda-cartao);
+    background: var(--cartao);
+    box-shadow: 0 4px 10px 2px var(--sombra);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Enquanto escuta: fundo forte e o microfone "respira" */
+.botao-microfone.ouvindo {
+    background: var(--cartao-escolhido);
+    border-width: 5px;
+}
+
+.botao-microfone.ouvindo .icone {
+    animation: pulsar 1s infinite;
+}
+
+.texto-microfone {
+    font-size: calc(18px * var(--tamanho));
+}

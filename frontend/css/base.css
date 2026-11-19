@@ -1,0 +1,241 @@
+/* ===== Base do visual do vozver =====
+   O que TODAS as telas usam: fontes, cores dos temas, regras gerais,
+   o botão VOLTAR e as listas de produtos (Comparar e Buscar usam a mesma lista).
+   As cores ficam em VARIÁVEIS (--fundo, --texto...). Para o tema escuro,
+   só trocamos o valor das variáveis: o resto do CSS continua igual.
+   O tamanho das letras usa calc(20px * var(--tamanho)): a tela Fonte muda o --tamanho.
+   As cores e medidas vêm do Figma do grupo (Interface-VozVer).
+   Este arquivo é carregado PRIMEIRO; os arquivos de css/telas/ vêm depois. */
+
+/* ---------- Fontes (arquivos na pasta fontes/, funcionam sem internet) ---------- */
+@font-face { font-family: 'Poppins'; font-weight: 500; src: url('../fontes/Poppins_500Medium.ttf'); font-display: swap; }
+@font-face { font-family: 'Poppins'; font-weight: 700; src: url('../fontes/Poppins_700Bold.ttf'); font-display: swap; }
+@font-face { font-family: 'Poppins'; font-weight: 800; src: url('../fontes/Poppins_800ExtraBold.ttf'); font-display: swap; }
+@font-face { font-family: 'Nunito'; font-weight: 700; src: url('../fontes/Nunito_700Bold.ttf'); font-display: swap; }
+@font-face { font-family: 'Nunito'; font-weight: 800; src: url('../fontes/Nunito_800ExtraBold.ttf'); font-display: swap; }
+
+/* ---------- Cores ---------- */
+:root {
+    --tamanho: 1;                 /* multiplica o tamanho das letras (tela Fonte) */
+    --azul-forte: #246bce;        /* botão "Começar agora" */
+    --branco: #ffffff;
+    --preto: #000000;
+    --fundo-carregamento: linear-gradient(37deg, #304470 0%, #0e1d3d 69%);
+}
+
+/* Tema claro: fundo lavanda e azul-marinho */
+body[data-tema="claro"] {
+    --fundo: #e3edff;
+    --texto: #0e1d3d;
+    --cartao: #ffffff;
+    --borda-cartao: #304470;
+    --cartao-escolhido: #c9dbff;
+    --botao: #0e1d3d;
+    --sobre-botao: #ffffff;
+    --preenchido: #304470;
+    --trilho: #b8cbeb;
+    --borda-trilho: #0e1d3d;
+    --sombra: rgba(81, 86, 92, 0.4);
+}
+
+/* Tema escuro */
+body[data-tema="escuro"] {
+    --fundo: #050f22;
+    --texto: #ffffff;
+    --cartao: #304470;
+    --borda-cartao: #ffffff;
+    --cartao-escolhido: #4f6aa8;
+    --botao: #e3edff;
+    --sobre-botao: #050f22;
+    --preenchido: #ffffff;
+    --trilho: #304470;
+    --borda-trilho: #c9dbff;
+    --sombra: rgba(0, 0, 0, 0.6);
+}
+
+/* ---------- Base ---------- */
+* {
+    box-sizing: border-box;
+}
+/* Essa parte ela barra o zoom de dois toques rapidoes para caso de erro, 
+ mais ainda permite o zoom com os dois dedos, no caso a pinã.
+    */
+html {
+    touch-action: manipulation;
+}
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    -webkit-tap-highlight-color: transparent;   /* tira o "flash" azul do toque no Android */
+}
+
+button {
+    font-family: inherit;
+    color: inherit;
+    cursor: pointer;
+    border: none;
+}
+
+/* Contorno bem visível para quem navega pelo teclado */
+:focus-visible {
+    outline: 4px solid var(--azul-forte);
+    outline-offset: 3px;
+}
+
+/* Texto só para o leitor de tela: existe, mas não aparece */
+.so-leitor {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+/* ---------- Telas ---------- */
+/* Todas as telas ficam escondidas; o JS coloca a classe "ativa" na tela da vez */
+.tela {
+    display: none;
+    flex-direction: column;
+    height: 100dvh;
+}
+
+.tela.ativa {
+    display: flex;
+}
+
+/* Área do meio da tela: rola se não couber, e o VOLTAR fica sempre embaixo */
+.conteudo {
+    flex: 1;
+    overflow-y: auto;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 0 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.conteudo.espalhado {
+    justify-content: space-evenly;   /* título, exemplo e barra espalhados na altura */
+    padding: 0 35px;
+}
+
+.titulo {
+    margin: 40px 0 8px;
+    text-align: center;
+    font-size: calc(40px * var(--tamanho));
+    font-weight: 700;
+}
+
+.subtitulo {
+    margin: 0 0 8px;
+    text-align: center;
+    font-weight: 500;
+    font-size: calc(18px * var(--tamanho));
+}
+
+.icone {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ---------- Botão VOLTAR (igual em várias telas) ---------- */
+.botao-voltar {
+    flex-shrink: 0;
+    min-height: 90px;
+    margin: 24px 28px;
+    border-radius: 20px;
+    background: var(--botao);
+    color: var(--sobre-botao);
+    font-size: calc(32px * var(--tamanho));
+    font-weight: 700;
+    box-shadow: inset 0 4px 4px rgba(195, 195, 195, 0.55);   /* brilho em cima, igual ao Figma */
+}
+
+.botao-voltar:active {
+    opacity: 0.8;
+}
+
+/* Botão pequeno (Buscar, Ligar câmera, botões do cartão) */
+.botao-pequeno {
+    min-height: 56px;
+    padding: 6px 16px;
+    border-radius: 16px;
+    background: var(--botao);
+    color: var(--sobre-botao);
+    font-size: calc(15px * var(--tamanho));
+    font-weight: 700;
+}
+
+.botao-pequeno:active {
+    opacity: 0.8;
+}
+/* ---------- 9 e 10. Listas de produtos (Comparar e Buscar) ---------- */
+.lista-produtos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.item-produto {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 16px;
+    border-radius: 30px;
+    border: 2px solid var(--borda-cartao);
+    background: var(--cartao);
+    text-align: left;
+}
+
+.item-produto.escolhido {
+    background: var(--cartao-escolhido);
+    border-width: 5px;
+}
+
+.item-posicao {
+    font-weight: 800;
+    font-size: calc(28px * var(--tamanho));
+}
+
+.item-textos {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.item-nome {
+    font-size: calc(17px * var(--tamanho));
+}
+
+.item-detalhe {
+    font-weight: 500;
+    font-size: calc(14px * var(--tamanho));
+}
+
+.item-preco {
+    font-weight: 800;
+    font-size: calc(20px * var(--tamanho));
+    white-space: nowrap;
+}
+/* ---------- Quem pediu "reduzir movimento" no celular: nada pisca ---------- */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
