@@ -54,7 +54,12 @@ body[data-tema="escuro"] {
 * {
     box-sizing: border-box;
 }
-
+/* Essa parte ela barra o zoom de dois toques rapidoes para caso de erro, 
+ mais ainda permite o zoom com os dois dedos, no caso a pinã.
+    */
+html {
+    touch-action: manipulation;
+}
 html, body {
     margin: 0;
     height: 100%;
