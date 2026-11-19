@@ -20,7 +20,7 @@ O **vozver** é um app de acessibilidade para pessoas com baixa visão terem a a
 
 - **Front-end (`frontend/`):** HTML, CSS e JavaScript puros, sem framework.
   - `index.html`: todas as telas; cada `<section class="tela">` é uma tela.
-  - `css/estilo.css`: cores (variáveis por tema) e tamanhos.
+  - `css/base.css`: cores (variáveis por tema), fontes e regras gerais; `css/telas/`: um arquivo por tela (mesmo nome do JS em `js/telas/`).
   - `js/`: `ajustes.js` (configurações e `falar()`), `navegacao.js` (troca de telas), `api.js` (chamadas à API), `telas/` (uma lógica por tela).
   - `vendor/`: leitor de código de barras (ZXing).
   - `manifest.json` e `sw.js`: instalar como app e funcionar sem internet.

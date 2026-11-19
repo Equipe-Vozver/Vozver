@@ -1,0 +1,179 @@
+/* ===== Ler código de barras =====
+   A câmera com a mira, o cartão do produto e o campo de digitar o código.
+   */
+
+/* ---------- 8. Ler código de barras ---------- */
+.tela-camera {
+    position: relative;
+    padding-top: 70px;   /* espaço para a elipse do topo */
+}
+
+.area-camera {
+    position: relative;
+    flex: 1;
+    min-height: 200px;
+    background: var(--preto);   /* fundo preto enquanto a câmera liga */
+    overflow: hidden;
+}
+
+.video-camera {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* preenche a área sem deformar a imagem */
+}
+
+/* Mira: 4 cantos brancos. Cada canto é uma caixa com só duas bordas. */
+.canto {
+    position: absolute;
+    width: 82px;
+    height: 82px;
+    border: 0 solid var(--branco);
+    pointer-events: none;
+}
+.cima-esquerda  { top: 35px; left: 35px; border-top-width: 10px; border-left-width: 10px; }
+.cima-direita   { top: 35px; right: 35px; border-top-width: 10px; border-right-width: 10px; }
+.baixo-esquerda { bottom: 35px; left: 35px; border-bottom-width: 10px; border-left-width: 10px; }
+.baixo-direita  { bottom: 35px; right: 35px; border-bottom-width: 10px; border-right-width: 10px; }
+
+.brilho {
+    position: absolute;
+    pointer-events: none;
+    color: var(--branco);   /* estrelinhas sempre brancas, por cima da câmera */
+}
+.brilho-cima  { top: 55px; right: 75px; }
+.brilho-baixo { bottom: 65px; left: 60px; }
+
+.sem-camera {
+    position: absolute;
+    inset: 0;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    color: var(--branco);
+    text-align: center;
+    font-size: calc(18px * var(--tamanho));
+}
+
+.sem-camera[hidden] {
+    display: none;
+}
+
+/* Elipse do topo com o ícone da câmera */
+.circulo-camera {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 156px;
+    height: 121px;
+    border-radius: 50%;
+    background: var(--fundo);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Painel de baixo, com sombra para cima */
+.painel {
+    flex-shrink: 0;
+    position: relative;
+    max-height: 60dvh;
+    overflow-y: auto;
+    background: var(--fundo);
+    box-shadow: 0 -8px 30px 2px var(--sombra);
+}
+
+.painel .botao-voltar {
+    width: calc(100% - 56px);
+}
+
+.digitar-codigo {
+    margin: 12px 28px 0;
+    font-size: calc(16px * var(--tamanho));
+}
+
+.digitar-codigo summary {
+    cursor: pointer;
+    padding: 8px 0;
+}
+
+/* Campo de texto + botão lado a lado (código e busca) */
+.linha-form {
+    display: flex;
+    gap: 8px;
+}
+
+.linha-form input {
+    flex: 1;
+    min-width: 0;
+    min-height: 56px;
+    padding: 0 14px;
+    border-radius: 16px;
+    border: 2px solid var(--borda-cartao);
+    background: var(--cartao);
+    color: var(--texto);
+    font-family: inherit;
+    font-weight: 500;
+    font-size: calc(17px * var(--tamanho));
+}
+
+/* Cartão do produto encontrado */
+.cartao-produto {
+    margin: 16px 16px 0;
+    padding: 16px;
+    border-radius: 35px;
+    border: 2px solid var(--borda-cartao);
+    background: var(--cartao);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.cartao-produto[hidden] {
+    display: none;
+}
+
+.produto-nome {
+    margin: 0;
+    font-size: calc(20px * var(--tamanho));
+}
+
+.produto-info {
+    margin: 0;
+    font-weight: 500;
+    font-size: calc(15px * var(--tamanho));
+}
+
+.produto-preco {
+    margin: 4px 0;
+    font-weight: 800;
+    font-size: calc(28px * var(--tamanho));
+}
+
+.linha-botoes {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.linha-botoes .botao-pequeno {
+    flex: 1;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Balança: a imagem vira um "molde" pintado com a cor do texto do botão */
+.icone-balanca {
+    width: 44px;
+    height: 40px;
+    background: var(--sobre-botao);
+    -webkit-mask: url('../../img/balanca.png') center / contain no-repeat;
+    mask: url('../../img/balanca.png') center / contain no-repeat;
+}

@@ -1,0 +1,60 @@
+/* ===== Menu =====
+   Os 3 botões grandes e a pílula da confirmação em dois toques.
+    */
+/* ---------- 4. Menu ---------- */
+.logo-menu {
+    width: 79px;
+    align-self: center;
+    margin: 24px 0 12px;
+}
+
+.cartao-menu {
+    min-height: 165px;
+    padding: 12px;
+    border-radius: 35px;
+    border: 2px solid var(--borda-cartao);
+    background: var(--cartao);
+    box-shadow: 0 4px 10px 2px var(--sombra);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+/* Botão tocado uma vez: fundo mais forte e borda grossa */
+.cartao-menu.escolhido {
+    background: var(--cartao-escolhido);
+    border-width: 5px;
+}
+
+.nome-menu {
+    font-size: calc(18px * var(--tamanho));
+}
+
+.pilula {
+    flex-shrink: 0;
+    min-height: 72px;
+    margin: 0 16px 16px;
+    padding: 14px 24px;
+    border-radius: 40px;
+    background: var(--botao);
+    color: var(--sobre-botao);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.pilula[hidden] {
+    display: none;
+}
+
+.pilula-nome {
+    font-size: calc(20px * var(--tamanho));
+}
+
+.pilula-texto {
+    font-weight: 500;
+    font-size: calc(15px * var(--tamanho));
+}
