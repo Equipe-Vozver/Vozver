@@ -1,0 +1,33 @@
+/* ===== Resultado da busca por voz =====
+   O cartão do caminho (corredor + como chegar) em letras grandes.
+   A lista de produtos usa os estilos do base.css.
+   Combina com js/telas/resultado.js. */
+
+/* ---------- 11. Resultado da busca ---------- */
+.cartao-caminho {
+    padding: 20px;
+    border-radius: 30px;
+    border: 3px solid var(--borda-cartao);
+    background: var(--cartao-escolhido);
+}
+
+/* "CORREDOR 2 · MATINAIS": igual à plaquinha da banca */
+.caminho-corredor {
+    margin: 0 0 8px;
+    font-weight: 800;
+    font-size: calc(26px * var(--tamanho));
+    text-transform: uppercase;
+}
+
+/* O caminho escrito: o mesmo texto que o app fala */
+.caminho-texto {
+    margin: 0;
+    font-weight: 600;
+    font-size: calc(19px * var(--tamanho));
+    line-height: 1.4;
+}
+
+/* "BUSCAR OUTRO PRODUTO" é mais comprido que "VOLTAR": letra um pouco menor para caber */
+#resultado .botao-voltar {
+    font-size: calc(24px * var(--tamanho));
+}

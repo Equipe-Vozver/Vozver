@@ -14,7 +14,6 @@ const seletorOndeEstou = document.getElementById('onde-estou');
 const botaoMicrofone = document.getElementById('botao-microfone');
 const textoMicrofone = document.getElementById('texto-microfone');
 const campoBusca = document.getElementById('campo-busca');
-const listaBusca = document.getElementById('lista-busca');
 const resumoBusca = document.getElementById('busca-resumo');
 
 let reconhecedor = null;
@@ -158,57 +157,16 @@ async function buscar(texto) {
         falar('Não consegui falar com o servidor do vozver. Confira a internet.');
         return;
     }
-
-    mostrarResultados();
-
     if (resultados.length === 0) {
         resumoBusca.textContent = `Não encontrei "${texto}".`;
         falar(`Não encontrei ${texto}. Tente falar de outro jeito, por exemplo: leite, água ou detergente.`);
         return;
     }
 
-    const maisBarato = resultados[0];   // a lista já vem do mais barato para o mais caro
-    const quantos = resultados.length === 1 ? 'um produto' : `${resultados.length} produtos`;
-    resumoBusca.textContent = `Encontrei ${quantos}, do mais barato para o mais caro.`;
-    falar(
-        `Encontrei ${quantos}. O mais barato é ${maisBarato.nome}, ${precoFalado(maisBarato.preco)}. ` +
-        `${maisBarato.onde_fica} Toque em um produto da lista para ouvir mais.`
-    );
-    // A pessoa vai até o corredor do mais barato: a próxima busca começa de lá
-    corredorAtual = maisBarato.corredor;
+    resumoBusca.textContent = '';
+    // A pessoa vai até o corredor do mais em conta: a próxima busca começa de lá
+    corredorAtual = resultados[0].corredor;
     seletorOndeEstou.value = String(corredorAtual);
+    // Os produtos aparecem numa tela só deles, que também fala o resultado
+    irPara('resultado');
 }
-
-// Um botão para cada produto encontrado
-function mostrarResultados() {
-    listaBusca.innerHTML = '';
-    resultados.forEach((produto, posicao) => {
-        const item = document.createElement('li');
-        item.innerHTML = `
-            <button class="item-produto" type="button" data-posicao="${posicao}">
-                <span class="item-textos">
-                    <span class="item-nome">${escapar(produto.nome)}</span>
-                    <span class="item-detalhe">${escapar(produto.peso)} · corredor ${produto.corredor}</span>
-                </span>
-                <span class="item-preco">${precoEmTexto(produto.preco)}</span>
-            </button>
-        `;
-        listaBusca.appendChild(item);
-    });
-}
-
-// Toque num produto da lista: destaca e fala os detalhes e onde fica
-listaBusca.addEventListener('click', (evento) => {
-    const botao = evento.target.closest('button');
-    if (!botao) {
-        return;
-    }
-    listaBusca.querySelectorAll('.item-produto').forEach((b) => b.classList.remove('escolhido'));
-    botao.classList.add('escolhido');
-
-    const produto = resultados[botao.dataset.posicao];
-    falar(
-        `${produto.nome}, ${produto.marca}, ${produto.peso}. Preço: ${precoFalado(produto.preco)}. ` +
-        produto.onde_fica
-    );
-});

@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="css/telas/ajustes.css">
     <link rel="stylesheet" href="css/telas/ler_codigo.css">
     <link rel="stylesheet" href="css/telas/busca.css">
+    <link rel="stylesheet" href="css/telas/resultado.css">
     <link rel="stylesheet" href="css/telas/politica.css">
 </head>
 <body data-tema="claro">
@@ -226,12 +227,28 @@
                 </select>
             </label>
             <p id="busca-resumo" class="subtitulo" aria-live="polite"></p>
-            <ul id="lista-busca" class="lista-produtos"></ul>
         </div>
         <button class="botao-voltar" type="button">VOLTAR</button>
     </section>
 
-    <!-- ============ 11. POLÍTICA DE PRIVACIDADE ============ -->
+    <!-- ============ 11. RESULTADO DA BUSCA ============ -->
+    <section id="resultado" class="tela">
+        <div class="conteudo">
+            <h1 class="titulo" tabindex="-1">RESULTADO</h1>
+            <p id="resultado-resumo" class="subtitulo"></p>
+
+            <!-- Como chegar: o mesmo que o app fala, escrito em letras grandes -->
+            <div class="cartao-caminho">
+                <p id="resultado-corredor" class="caminho-corredor"></p>
+                <p id="resultado-caminho" class="caminho-texto"></p>
+            </div>
+            <button id="botao-ouvir-caminho" class="botao-pequeno" type="button">Ouvir o caminho de novo</button>
+
+            <ul id="lista-resultado" class="lista-produtos" aria-label="Produtos encontrados"></ul>
+        </div>
+        <button class="botao-voltar" type="button">BUSCAR OUTRO PRODUTO</button>
+    </section>
+    <!-- ============ 12. POLÍTICA DE PRIVACIDADE ============ -->
     <section id="politica" class="tela">
         <div class="conteudo texto-longo">
             <h1 class="titulo" tabindex="-1">Política de Privacidade</h1>
@@ -305,6 +322,7 @@
     <script src="js/telas/ler_codigo.js"></script>
     <script src="js/telas/comparar.js"></script>
     <script src="js/telas/busca.js"></script>
+    <script src="js/telas/resultado.js"></script>
     <script src="js/telas/politica.js"></script>
     <script src="js/app.js"></script>
 </body>
