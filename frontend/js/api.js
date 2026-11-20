@@ -21,7 +21,9 @@ async function buscarProdutoPorCodigo(codigo) {
 
 // Procura pelo que a pessoa falou ou digitou. Devolve uma lista (do mais barato ao mais caro).
 async function buscarProdutosPorNome(texto) {
-    const resposta = await fetch('api/produtos/busca?texto=' + encodeURIComponent(texto));
+    const resposta = await fetch(
+        'api/produtos/busca?texto=' + encodeURIComponent(texto) + '&de=' + corredorAtual
+    );
     if (!resposta.ok) {
         throw new Error('O servidor respondeu com erro ' + resposta.status);
     }
@@ -63,3 +65,8 @@ function escapar(texto) {
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
 }
+// ---------- Onde a pessoa provavelmente está ----------
+// 0 = entrada; 1 a 4 = um corredor. O app "deduz": quando a pessoa acha um produto
+// (pela busca ou pelo leitor de código), ela vai até o corredor dele.
+// Fica só na memória do app e some quando ele fecha: não salvamos por onde a pessoa anda (LGPD).
+let corredorAtual = 0;

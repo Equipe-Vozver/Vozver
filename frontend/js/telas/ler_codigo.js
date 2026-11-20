@@ -163,6 +163,7 @@ async function mostrarProdutoDoCodigo(codigo, digitado = false) {
     }
 
     mostrarCartao(produto);
+    corredorAtual = produto.corredor;   // leu o produto: a pessoa está no corredor dele
     falar(
         `${produto.nome}, ${produto.marca}, ${produto.peso}. Preço: ${precoFalado(produto.preco)}. ` +
         'Embaixo tem os botões: ouvir detalhes, comparar preços e ler outro.'

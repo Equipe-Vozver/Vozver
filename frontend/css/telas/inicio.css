@@ -70,17 +70,18 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 13px;
-    padding-bottom: 180px;
+    gap: 24px;
+    padding-bottom: 80px;
 }
 
+/* Botões grandes, do tamanho dos botões do menu: mais fáceis de ver e de acertar o toque */
 .botao-prepare {
-    min-height: 84px;
-    padding: 12px;
-    border-radius: 20px;
+    min-height: 165px;
+    padding: 16px;
+    border-radius: 35px;
     font-family: 'Nunito', sans-serif;
-    font-weight: 700;
-    font-size: calc(24px * var(--tamanho));
+    font-weight: 800;
+    font-size: calc(30px * var(--tamanho));
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 

@@ -10,7 +10,7 @@
 
 // O Chrome ainda usa o nome antigo, com "webkit" na frente
 const Reconhecedor = window.SpeechRecognition || window.webkitSpeechRecognition;
-
+const seletorOndeEstou = document.getElementById('onde-estou');
 const botaoMicrofone = document.getElementById('botao-microfone');
 const textoMicrofone = document.getElementById('texto-microfone');
 const campoBusca = document.getElementById('campo-busca');
@@ -31,10 +31,12 @@ function mostrarOuvindo(sim) {
 
 registrarTela('busca', {
     aoAbrir() {
+        seletorOndeEstou.value = String(corredorAtual);   // mostra o último corredor deduzido
+        const ondeEsta = corredorAtual === 0 ? '' : `Você está no corredor ${corredorAtual}. `;
         if (Reconhecedor) {
-            falar('Buscar por voz. Toque no microfone, no meio da tela, e fale o nome do produto. Por exemplo: arroz.');
+            falar(`Buscar por voz. ${ondeEsta}Toque no microfone e fale o nome do produto, por exemplo: leite. Para dizer onde você está, fale: estou no corredor 2.`);
         } else {
-            falar('Buscar. Este navegador não tem ditado. Digite o nome do produto no campo de busca.');
+            falar(`Buscar. ${ondeEsta}Este navegador não tem ditado. Digite o nome do produto no campo de busca.`);
         }
     },
     aoSair() {
@@ -94,12 +96,60 @@ document.getElementById('form-busca').addEventListener('submit', (evento) => {
     evento.preventDefault();
     buscar(campoBusca.value);
 });
+// ---------- Onde você está agora ----------
+// Se o app deduziu errado, a pessoa corrige aqui
+seletorOndeEstou.addEventListener('change', () => {
+    corredorAtual = Number(seletorOndeEstou.value);
+    falar(corredorAtual === 0 ? 'Certo, você está na entrada.' : `Certo, você está no corredor ${corredorAtual}.`);
+});
+
+// ---------- "Estou no corredor 2" (falando ou digitando) ----------
+// O reconhecimento de voz às vezes escreve o número por extenso ("dois")
+const NUMEROS_FALADOS = { um: 1, dois: 2, tres: 3, quatro: 4 };
+
+// Procura "estou no corredor 2" ou "estou na entrada" no que a pessoa falou.
+// Devolve o corredor (0 = entrada) e o resto da frase; ou null se ela não falou onde está.
+function entenderOndeEstou(texto) {
+    // deixa minúsculo e sem acento: "Tô" vira "to"
+    const simples = texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+    const naEntrada = simples.match(/\b(estou|to) na entrada\b/);
+    if (naEntrada) {
+        return { corredor: 0, resto: simples.replace(naEntrada[0], '') };
+    }
+
+    const noCorredor = simples.match(/\b(estou|to) no corredor (\d+|um|dois|tres|quatro)\b/);
+    if (!noCorredor) {
+        return null;
+    }
+    const numero = NUMEROS_FALADOS[noCorredor[2]] || Number(noCorredor[2]);
+    return { corredor: numero, resto: simples.replace(noCorredor[0], '') };
+}
 
 // ---------- Buscar na API e mostrar ----------
 async function buscar(texto) {
     if (texto.trim() === '') {
         falar('Fale ou digite o nome de um produto.');
         return;
+    }
+    
+    // A pessoa disse onde está? ("estou no corredor 2", "estou na entrada")
+    const ondeEsta = entenderOndeEstou(texto);
+    if (ondeEsta) {
+        const ultimoCorredor = seletorOndeEstou.options.length - 1;   // as opções do seletor: entrada + corredores
+        if (ondeEsta.corredor > ultimoCorredor) {
+            falar(`Esse corredor não existe. O mercado tem os corredores de 1 a ${ultimoCorredor}.`);
+            return;
+        }
+        corredorAtual = ondeEsta.corredor;
+        seletorOndeEstou.value = String(corredorAtual);
+        texto = ondeEsta.resto;
+
+        // Só disse onde está, sem pedir produto: confirma e para aqui
+        if (texto.replace(/[^a-z0-9]/g, '') === '') {
+            falar(corredorAtual === 0 ? 'Certo, você está na entrada.' : `Certo, você está no corredor ${corredorAtual}.`);
+            return;
+        }
     }
 
     try {
@@ -113,7 +163,7 @@ async function buscar(texto) {
 
     if (resultados.length === 0) {
         resumoBusca.textContent = `Não encontrei "${texto}".`;
-        falar(`Não encontrei ${texto}. Tente falar de outro jeito, por exemplo: café, arroz ou biscoito.`);
+        falar(`Não encontrei ${texto}. Tente falar de outro jeito, por exemplo: leite, água ou detergente.`);
         return;
     }
 
@@ -124,6 +174,9 @@ async function buscar(texto) {
         `Encontrei ${quantos}. O mais barato é ${maisBarato.nome}, ${precoFalado(maisBarato.preco)}. ` +
         `${maisBarato.onde_fica} Toque em um produto da lista para ouvir mais.`
     );
+    // A pessoa vai até o corredor do mais barato: a próxima busca começa de lá
+    corredorAtual = maisBarato.corredor;
+    seletorOndeEstou.value = String(corredorAtual);
 }
 
 // Um botão para cada produto encontrado
