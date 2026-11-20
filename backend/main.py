@@ -13,14 +13,27 @@
 #     http://localhost:8000/docs   -> a página para testar a API
 # =====================================================================
 
-import mimetypes
-from pathlib import Path
 
+import mimetypes
+import os
+from pathlib import Path
 from fastapi import FastAPI, HTTPException
+from dotenv import load_dotenv
 from fastapi.staticfiles import StaticFiles
 
-import produtos_teste
 import corredores
+
+# De onde vêm os produtos:
+#   - se o .env (ou o Render) tem DB_HOST, usa o banco MySQL;
+#   - se não tem, usa a lista de teste (assim o site no ar não quebra
+#     enquanto o Render ainda não tem banco online).
+load_dotenv()
+if os.getenv("DB_HOST"):
+    import banco as produtos
+    print("vozver: usando o banco MySQL")
+else:
+    import produtos_teste as produtos
+    print("vozver: usando a lista de teste (sem DB_HOST no .env)")
 
 # O Windows às vezes não conhece o tipo do arquivo .wasm (o "motor" do leitor de código)
 mimetypes.add_type("application/wasm", ".wasm")
@@ -43,7 +56,7 @@ def inicio():
 @app.get("/api/produtos/codigo/{codigo}")
 def produto_pelo_codigo(codigo: str):
     """Procura o produto pelo número do código de barras (tela Ler código)."""
-    produto = produtos_teste.buscar_por_codigo(codigo)
+    produto = produtos.buscar_por_codigo(codigo)
     if produto is None:
         # 404 = "não encontrado"
         raise HTTPException(status_code=404, detail=NAO_ENCONTRADO)
@@ -57,14 +70,12 @@ def produtos_pelo_nome(texto: str, de: int = 0):
     Exemplo: /api/produtos/busca?texto=onde fica o leite&de=2"""
     if de not in corredores.CORREDORES:
         de = 0   # número que não é corredor: explica a partir da entrada
-    return produtos_teste.buscar_por_nome(texto, de)
-
+    return produtos.buscar_por_nome(texto, de)
 
 @app.get("/api/produtos/categoria/{categoria}")
 def produtos_da_categoria(categoria: str):
     """Produtos da mesma categoria, do mais barato para o mais caro (tela Comparar)."""
-    return produtos_teste.buscar_por_categoria(categoria)
-
+    return produtos.buscar_por_categoria(categoria)
 
 # O site: qualquer endereço que não seja da API entrega um arquivo da pasta frontend.
 # html=True: o endereço "/" entrega o index.html.

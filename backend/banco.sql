@@ -1,26 +1,43 @@
 -- =====================================================================
--- Banco de dados do vozver (MySQL 8)
--- Feito a partir do modelo lógico do grupo (Desktop/VOZVER/Lógico_vozver.brM3).
+-- Banco de dados do vozver (MySQL 8 ou MariaDB do XAMPP)
+-- Feito a partir do modelo lógico do grupo (Desktop/VOZVER/Lógico_vozver.brM3),
+-- com corredor, preço e ingredientes para o app.
 --
 -- Como usar: abra este arquivo no MySQL Workbench e clique no raio (⚡)
 -- para rodar tudo. Ele APAGA e cria de novo o banco "vozver",
 -- então só rode de novo se quiser começar do zero.
+--
+-- LGPD: o banco guarda só PRODUTOS. Nenhum dado de quem usa o app.
 -- =====================================================================
 
 DROP DATABASE IF EXISTS vozver;
-CREATE DATABASE vozver CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+-- utf8mb4_general_ci funciona no MySQL 8 e no MariaDB (XAMPP)
+CREATE DATABASE vozver CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE vozver;
 
 -- ---------------------------------------------------------------------
--- categoria: tipo do produto (Café, Laticínios, Biscoitos...)
+-- corredor: os corredores do mercado e o nome da seção de cada um
+-- (o mesmo que está escrito nas plaquinhas da banca)
 -- ---------------------------------------------------------------------
-CREATE TABLE categoria (
-    id_categoria   INT AUTO_INCREMENT PRIMARY KEY,
-    nome_categoria VARCHAR(60) NOT NULL UNIQUE
+CREATE TABLE corredor (
+    numero TINYINT PRIMARY KEY,      -- 1, 2, 3, 4
+    secao  VARCHAR(40) NOT NULL      -- Bebidas, Matinais...
 );
 
 -- ---------------------------------------------------------------------
--- marca: fabricante (Melitta, Nestlé...)
+-- categoria: tipo do produto (Achocolatado, Feijão, Detergente...)
+-- Cada categoria fica num corredor.
+-- ---------------------------------------------------------------------
+CREATE TABLE categoria (
+    id_categoria       INT AUTO_INCREMENT PRIMARY KEY,
+    nome_categoria     VARCHAR(60) NOT NULL UNIQUE,
+    alimento           BOOLEAN NOT NULL DEFAULT TRUE,   -- FALSE = limpeza (não é para comer)
+    fk_corredor_numero TINYINT NOT NULL,
+    FOREIGN KEY (fk_corredor_numero) REFERENCES corredor (numero)
+);
+
+-- ---------------------------------------------------------------------
+-- marca: fabricante (Nestlé, Ypê...)
 -- ---------------------------------------------------------------------
 CREATE TABLE marca (
     id_marca   INT AUTO_INCREMENT PRIMARY KEY,
@@ -28,7 +45,7 @@ CREATE TABLE marca (
 );
 
 -- ---------------------------------------------------------------------
--- produto: o produto "em geral" (ex.: Café Melitta Tradicional)
+-- produto: o produto "em geral" (ex.: Achocolatado em Pó Nescau)
 -- Se a categoria ou a marca for apagada, o produto vai junto (CASCADE),
 -- como está no modelo.
 -- ---------------------------------------------------------------------
@@ -36,6 +53,7 @@ CREATE TABLE produto (
     id_produto                INT AUTO_INCREMENT PRIMARY KEY,
     nome                      VARCHAR(120) NOT NULL,
     descricao                 VARCHAR(255),
+    ingredientes              TEXT,
     fk_categoria_id_categoria INT NOT NULL,
     fk_marca_id_marca         INT NOT NULL,
     FOREIGN KEY (fk_categoria_id_categoria) REFERENCES categoria (id_categoria) ON DELETE CASCADE,
@@ -43,12 +61,14 @@ CREATE TABLE produto (
 );
 
 -- ---------------------------------------------------------------------
--- embalagem: o tamanho vendido (o mesmo café em 250 g e em 500 g)
+-- embalagem: o tamanho vendido (o mesmo produto em 350 g e em 1 kg)
+-- O preço fica aqui, porque cada tamanho tem o seu preço.
 -- ---------------------------------------------------------------------
 CREATE TABLE embalagem (
     id_embalagem          INT AUTO_INCREMENT PRIMARY KEY,
     quantidade            DECIMAL(10,2) NOT NULL,   -- ex.: 500
     unidade_medida        VARCHAR(10)   NOT NULL,   -- ex.: g, kg, ml, L, un
+    preco                 INT           NOT NULL,   -- em centavos: 949 = R$ 9,49
     fk_produto_id_produto INT NOT NULL,
     FOREIGN KEY (fk_produto_id_produto) REFERENCES produto (id_produto) ON DELETE CASCADE
 );
@@ -70,7 +90,7 @@ CREATE TABLE codigodebarras (
 -- ---------------------------------------------------------------------
 CREATE TABLE informacao_nutricional (
     id_nutricional            INT AUTO_INCREMENT PRIMARY KEY,
-    porcao_descricao          VARCHAR(60),       -- ex.: "50 g (1 xícara)"
+    porcao_descricao          VARCHAR(60),       -- ex.: "20 gramas"
     valor_energetico          DECIMAL(7,2),      -- kcal
     carboidratos              DECIMAL(7,2),      -- g
     acucares                  DECIMAL(7,2),      -- g
@@ -86,59 +106,79 @@ CREATE TABLE informacao_nutricional (
 );
 
 -- ---------------------------------------------------------------------
--- dispositivo: o celular de quem usa o app, sem dados pessoais.
--- codigo_anonimo é um código aleatório criado pelo próprio app.
+-- vw_produtos: junta todas as tabelas numa "tabela virtual".
+-- O Python só faz SELECT nela, sem precisar repetir os JOINs toda vez.
+-- LEFT JOIN na nutricional: produto de limpeza não tem tabela nutricional.
 -- ---------------------------------------------------------------------
-CREATE TABLE dispositivo (
-    id_dispositivo INT AUTO_INCREMENT PRIMARY KEY,
-    codigo_anonimo VARCHAR(64) NOT NULL UNIQUE
-);
-
--- ---------------------------------------------------------------------
--- historico_escaneamento: cada vez que alguém lê um código no app.
--- Se a embalagem for apagada, o histórico fica, só perde a ligação (SET NULL).
--- ---------------------------------------------------------------------
-CREATE TABLE historico_escaneamento (
-    id_historico_escaneamento     INT AUTO_INCREMENT PRIMARY KEY,
-    texto_falado                  VARCHAR(500),
-    escaneado_em                  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    fk_dispositivo_id_dispositivo INT NOT NULL,
-    fk_embalagem_id_embalagem     INT NULL,
-    FOREIGN KEY (fk_dispositivo_id_dispositivo) REFERENCES dispositivo (id_dispositivo) ON DELETE CASCADE,
-    FOREIGN KEY (fk_embalagem_id_embalagem)     REFERENCES embalagem (id_embalagem)     ON DELETE SET NULL
-);
+CREATE VIEW vw_produtos AS
+SELECT
+    cb.codigo,
+    p.nome,
+    m.nome_marca     AS marca,
+    e.quantidade,
+    e.unidade_medida AS unidade,
+    e.preco,
+    c.nome_categoria AS categoria,
+    c.alimento,
+    co.numero        AS corredor,
+    co.secao,
+    p.ingredientes,
+    n.porcao_descricao,
+    n.valor_energetico,
+    n.carboidratos,
+    n.acucares,
+    n.proteinas,
+    n.gorduras_totais,
+    n.sodio,
+    n.gluten
+FROM codigodebarras cb
+JOIN embalagem e  ON e.id_embalagem = cb.fk_embalagem_id_embalagem
+JOIN produto p    ON p.id_produto   = e.fk_produto_id_produto
+JOIN marca m      ON m.id_marca     = p.fk_marca_id_marca
+JOIN categoria c  ON c.id_categoria = p.fk_categoria_id_categoria
+JOIN corredor co  ON co.numero      = c.fk_corredor_numero
+LEFT JOIN informacao_nutricional n ON n.fk_embalagem_id_embalagem = e.id_embalagem;
 
 
 -- =====================================================================
 -- DADOS DE EXEMPLO (para testar). Os códigos de barras são inventados.
+-- Amanhã entram os produtos reais do Demoday.
 -- =====================================================================
 
-INSERT INTO categoria (nome_categoria) VALUES ('Café'), ('Laticínios'), ('Biscoitos');
+-- Os 4 corredores da banca (iguais às plaquinhas)
+INSERT INTO corredor (numero, secao) VALUES
+    (1, 'Bebidas'), (2, 'Matinais'), (3, 'Mercearia'), (4, 'Limpeza');
 
-INSERT INTO marca (nome_marca) VALUES ('Melitta'), ('Nestlé'), ('Marilan');
+-- alimento = FALSE: o app fala o aviso de segurança no lugar da tabela nutricional
+INSERT INTO categoria (nome_categoria, alimento, fk_corredor_numero) VALUES
+    ('Água', TRUE, 1), ('Achocolatado', TRUE, 2), ('Detergente', FALSE, 4);
 
--- Os números (1, 2, 3) são os ids criados acima, na mesma ordem.
-INSERT INTO produto (nome, descricao, fk_categoria_id_categoria, fk_marca_id_marca) VALUES
-    ('Café Melitta Tradicional', 'Café torrado e moído', 1, 1),
-    ('Leite Condensado Moça',    'Leite condensado integral', 2, 2),
-    ('Biscoito Cream Cracker',   'Biscoito salgado', 3, 3);
+INSERT INTO marca (nome_marca) VALUES ('Crystal'), ('Nestlé'), ('PepsiCo'), ('Ypê');
 
-INSERT INTO embalagem (quantidade, unidade_medida, fk_produto_id_produto) VALUES
-    (500, 'g', 1),   -- id 1: café 500 g
-    (250, 'g', 1),   -- id 2: café 250 g
-    (395, 'g', 2),   -- id 3: leite condensado
-    (200, 'g', 3);   -- id 4: biscoito
+-- Os números no fim são os ids da categoria e da marca, na ordem em que foram criados acima
+INSERT INTO produto (nome, ingredientes, fk_categoria_id_categoria, fk_marca_id_marca) VALUES
+    ('Água Mineral sem Gás Crystal',  'Água mineral natural.', 1, 1),
+    ('Achocolatado em Pó Nescau',     'Açúcar, cacau em pó, maltodextrina, vitaminas e minerais. Pode conter leite.', 2, 2),
+    ('Achocolatado em Pó Toddy',      'Açúcar, cacau em pó, vitaminas e minerais. Pode conter leite.', 2, 3),
+    ('Detergente Líquido Ypê Neutro', 'Tensoativo aniônico, conservante, corante e água.', 3, 4);
+
+-- Preço em centavos (949 = R$ 9,49). Nescau 350 g x Toddy 400 g: o Toddy sai mais em conta no quilo!
+INSERT INTO embalagem (quantidade, unidade_medida, preco, fk_produto_id_produto) VALUES
+    (500, 'ml', 249, 1),
+    (350, 'g',  949, 2),
+    (400, 'g',  999, 3),
+    (500, 'ml', 279, 4);
 
 INSERT INTO codigodebarras (codigo, fk_embalagem_id_embalagem) VALUES
-    ('7890000000011', 1),
-    ('7890000000028', 2),
-    ('7890000000035', 3),
-    ('7890000000042', 4);
+    ('7890000000073', 1),
+    ('7890000000035', 2),
+    ('7890000000042', 3),
+    ('7890000000097', 4);
 
 INSERT INTO informacao_nutricional
     (porcao_descricao, valor_energetico, carboidratos, acucares, proteinas,
      gorduras_totais, gorduras_saturadas, gorduras_trans, fibra_alimentar,
      sodio, gluten, fk_embalagem_id_embalagem)
 VALUES
-    ('20 g (2 colheres de sopa)', 65, 13, 10, 1.5, 1.6, 1.0, 0, 0, 25, FALSE, 3),
-    ('30 g (6 biscoitos)',       130, 20,  1, 3.0, 4.2, 1.5, 0, 1, 210, TRUE, 4);
+    ('20 gramas', 76, 17, 14, 0.8, 0.6, 0.3, 0, 1.2, 15, FALSE, 2),
+    ('20 gramas', 75, 17, 15, 0.7, 0.5, 0.3, 0, 1.0, 20, FALSE, 3);
