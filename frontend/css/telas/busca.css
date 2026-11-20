@@ -30,13 +30,6 @@
     font-size: calc(18px * var(--tamanho));
 }
 /* "Onde você está agora?": o seletor do corredor */
-.linha-onde-estou {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    font-size: calc(17px * var(--tamanho));
-}
-
 
 .linha-onde-estou {
     display: flex;
