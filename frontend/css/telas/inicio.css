@@ -1,5 +1,5 @@
-/*Telas do começo: Carregamento, Boas-vindas e Prepare seu vozver =====
-    */
+/* ===== Telas do começo: Carregamento, Boas-vindas e Prepare seu vozver =====
+   Combina com js/telas/inicio.js. */    
 
 /* ---------- 1. Carregamento ---------- */
 .tela-carregamento {
@@ -69,14 +69,15 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     gap: 24px;
-    padding-bottom: 80px;
+    padding: 32px 0 40px;
 }
 
-/* Botões grandes, do tamanho dos botões do menu: mais fáceis de ver e de acertar o toque */
+/* Os dois botões dividem todo o espaço que sobra embaixo do título (flex: 1).
+   Assim eles ficam bem grandes e fáceis de acertar, em qualquer tamanho de celular. */
 .botao-prepare {
-    min-height: 165px;
+    flex: 1;
+    min-height: 120px;
     padding: 16px;
     border-radius: 35px;
     font-family: 'Nunito', sans-serif;

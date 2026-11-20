@@ -36,8 +36,6 @@
     gap: 6px;
     font-size: calc(17px * var(--tamanho));
 }
-
-
 .linha-onde-estou {
     display: flex;
     flex-direction: column;
