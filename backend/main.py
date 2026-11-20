@@ -20,6 +20,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 
 import produtos_teste
+import corredores
 
 # O Windows às vezes não conhece o tipo do arquivo .wasm (o "motor" do leitor de código)
 mimetypes.add_type("application/wasm", ".wasm")
@@ -50,10 +51,13 @@ def produto_pelo_codigo(codigo: str):
 
 
 @app.get("/api/produtos/busca")
-def produtos_pelo_nome(texto: str):
+def produtos_pelo_nome(texto: str, de: int = 0):
     """Procura pelo que a pessoa falou ou digitou (tela Buscar por voz).
-    Exemplo: /api/produtos/busca?texto=onde fica o arroz"""
-    return produtos_teste.buscar_por_nome(texto)
+    "de" = corredor onde a pessoa está agora (0 = entrada).
+    Exemplo: /api/produtos/busca?texto=onde fica o leite&de=2"""
+    if de not in corredores.CORREDORES:
+        de = 0   # número que não é corredor: explica a partir da entrada
+    return produtos_teste.buscar_por_nome(texto, de)
 
 
 @app.get("/api/produtos/categoria/{categoria}")

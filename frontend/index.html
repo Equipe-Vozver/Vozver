@@ -211,10 +211,20 @@
 
             <form id="form-busca" class="linha-form">
                 <label for="campo-busca" class="so-leitor">Nome do produto</label>
-                <input id="campo-busca" type="search" autocomplete="off" placeholder="Ou digite: arroz, café...">
+                <input id="campo-busca" type="search" autocomplete="off" placeholder="Ou digite: leite, água...">
                 <button class="botao-pequeno" type="submit">Buscar</button>
             </form>
-
+                        <!-- Onde a pessoa está: o app deduz sozinho, mas ela pode corrigir aqui -->
+            <label class="linha-onde-estou">
+                <span>Onde você está agora?</span>
+                <select id="onde-estou">
+                    <option value="0">Na entrada</option>
+                    <option value="1">No corredor 1</option>
+                    <option value="2">No corredor 2</option>
+                    <option value="3">No corredor 3</option>
+                    <option value="4">No corredor 4</option>
+                </select>
+            </label>
             <p id="busca-resumo" class="subtitulo" aria-live="polite"></p>
             <ul id="lista-busca" class="lista-produtos"></ul>
         </div>

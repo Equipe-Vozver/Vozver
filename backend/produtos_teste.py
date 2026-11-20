@@ -12,6 +12,8 @@
 import re
 import unicodedata
 
+from corredores import com_onde_fica
+
 PRODUTOS = [
     # ---------- Corredor 1: bebidas ----------
     {
@@ -151,13 +153,7 @@ PRODUTOS = [
         "nutricional": "Não é alimento. Não ingerir. Mantenha longe de crianças.",
     },
 ]
-# Os corredores do mercado de teste e como chegar neles a partir da entrada
-CORREDORES = {
-    1: "Da entrada, é o primeiro corredor à sua esquerda.",
-    2: "Da entrada, siga em frente e entre no segundo corredor à esquerda.",
-    3: "Da entrada, siga em frente e entre no terceiro corredor à esquerda.",
-    4: "Da entrada, siga em frente até o fundo da loja e vire à direita. É o primeiro corredor.",
-}
+
 
 # Palavras que a pessoa fala, mas que não são o produto ("onde fica O arroz?")
 PALAVRAS_IGNORADAS = {
@@ -175,14 +171,7 @@ def simplificar(texto):
     return sem_pontuacao.lower().strip()
 
 
-def com_onde_fica(produto):
-    """Devolve uma cópia do produto com a frase de onde ele fica no mercado."""
-    copia = dict(produto)
-    copia["onde_fica"] = (
-        f'{produto["categoria"]} fica no corredor {produto["corredor"]}. '
-        f'{CORREDORES[produto["corredor"]]}'
-    )
-    return copia
+
 
 
 def buscar_por_codigo(codigo):
@@ -200,7 +189,7 @@ def palavra_aparece(palavra, texto):
     return palavra.endswith("s") and len(palavra) > 3 and palavra[:-1] in texto
 
 
-def buscar_por_nome(texto):
+def buscar_por_nome(texto, de=0):
     """Procura pelo que a pessoa falou ou digitou (no nome, na marca ou na categoria).
     Devolve os produtos que mais combinam, do mais barato para o mais caro."""
     palavras = [p for p in simplificar(texto).split() if p not in PALAVRAS_IGNORADAS]
@@ -217,7 +206,7 @@ def buscar_por_nome(texto):
     # Quem acertou mais palavras vem primeiro; empate: o mais barato primeiro
     encontrados.sort(key=lambda par: (-par[0], par[1]["preco"]))
     melhor = encontrados[0][0] if encontrados else 0
-    return [com_onde_fica(produto) for acertos, produto in encontrados if acertos == melhor]
+    return [com_onde_fica(produto, de) for acertos, produto in encontrados if acertos == melhor]
 
 
 def buscar_por_categoria(categoria):
