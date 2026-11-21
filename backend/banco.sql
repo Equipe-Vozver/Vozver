@@ -1,11 +1,13 @@
 -- =====================================================================
--- Banco de dados do vozver (MySQL 8 ou MariaDB do XAMPP)
+-- Banco de dados do vozver (MySQL 8, MariaDB do XAMPP ou MySQL da Aiven)
 -- Feito a partir do modelo lógico do grupo (Desktop/VOZVER/Lógico_vozver.brM3),
 -- com corredor, preço e ingredientes para o app.
 --
 -- Como usar: abra este arquivo no MySQL Workbench e clique no raio (⚡)
 -- para rodar tudo. Ele APAGA e cria de novo o banco "vozver",
 -- então só rode de novo se quiser começar do zero.
+-- CUIDADO: confira o nome da conexão na aba (vozver-xampp ou vozver-aiven)
+-- antes de rodar.
 --
 -- LGPD: o banco guarda só PRODUTOS. Nenhum dado de quem usa o app.
 -- =====================================================================
@@ -141,8 +143,10 @@ LEFT JOIN informacao_nutricional n ON n.fk_embalagem_id_embalagem = e.id_embalag
 
 
 -- =====================================================================
--- DADOS DE EXEMPLO (para testar). Os códigos de barras são inventados.
--- Amanhã entram os produtos reais do Demoday.
+-- PRODUTOS
+-- Os 4 primeiros são de exemplo (códigos inventados).
+-- O Açúcar Refinado é o primeiro produto real (código do pacote).
+-- Regra: o nome do produto vai SEM a marca (o app já fala a marca depois).
 -- =====================================================================
 
 -- Os 4 corredores da banca (iguais às plaquinhas)
@@ -151,29 +155,33 @@ INSERT INTO corredor (numero, secao) VALUES
 
 -- alimento = FALSE: o app fala o aviso de segurança no lugar da tabela nutricional
 INSERT INTO categoria (nome_categoria, alimento, fk_corredor_numero) VALUES
-    ('Água', TRUE, 1), ('Achocolatado', TRUE, 2), ('Detergente', FALSE, 4);
+    ('Água', TRUE, 1), ('Achocolatado', TRUE, 2), ('Detergente', FALSE, 4),
+    ('Açúcar', TRUE, 3);
 
-INSERT INTO marca (nome_marca) VALUES ('Crystal'), ('Nestlé'), ('PepsiCo'), ('Ypê');
+INSERT INTO marca (nome_marca) VALUES ('Crystal'), ('Nestlé'), ('PepsiCo'), ('Ypê'), ('Da Barra');
 
 -- Os números no fim são os ids da categoria e da marca, na ordem em que foram criados acima
 INSERT INTO produto (nome, ingredientes, fk_categoria_id_categoria, fk_marca_id_marca) VALUES
     ('Água Mineral sem Gás Crystal',  'Água mineral natural.', 1, 1),
     ('Achocolatado em Pó Nescau',     'Açúcar, cacau em pó, maltodextrina, vitaminas e minerais. Pode conter leite.', 2, 2),
     ('Achocolatado em Pó Toddy',      'Açúcar, cacau em pó, vitaminas e minerais. Pode conter leite.', 2, 3),
-    ('Detergente Líquido Ypê Neutro', 'Tensoativo aniônico, conservante, corante e água.', 3, 4);
+    ('Detergente Líquido Ypê Neutro', 'Tensoativo aniônico, conservante, corante e água.', 3, 4),
+    ('Açúcar Refinado',               'Açúcar refinado.', 4, 5);
 
 -- Preço em centavos (949 = R$ 9,49). Nescau 350 g x Toddy 400 g: o Toddy sai mais em conta no quilo!
 INSERT INTO embalagem (quantidade, unidade_medida, preco, fk_produto_id_produto) VALUES
     (500, 'ml', 249, 1),
     (350, 'g',  949, 2),
     (400, 'g',  999, 3),
-    (500, 'ml', 279, 4);
+    (500, 'ml', 279, 4),
+    (1000, 'g', 379, 5);
 
 INSERT INTO codigodebarras (codigo, fk_embalagem_id_embalagem) VALUES
     ('7890000000073', 1),
     ('7890000000035', 2),
     ('7890000000042', 3),
-    ('7890000000097', 4);
+    ('7890000000097', 4),
+    ('7896032501010', 5);
 
 INSERT INTO informacao_nutricional
     (porcao_descricao, valor_energetico, carboidratos, acucares, proteinas,
@@ -181,4 +189,5 @@ INSERT INTO informacao_nutricional
      sodio, gluten, fk_embalagem_id_embalagem)
 VALUES
     ('20 gramas', 76, 17, 14, 0.8, 0.6, 0.3, 0, 1.2, 15, FALSE, 2),
-    ('20 gramas', 75, 17, 15, 0.7, 0.5, 0.3, 0, 1.0, 20, FALSE, 3);
+    ('20 gramas', 75, 17, 15, 0.7, 0.5, 0.3, 0, 1.0, 20, FALSE, 3),
+    ('5 gramas',  20,  5,  5, 0,   0,   0,   0, 0,    0, FALSE, 5);

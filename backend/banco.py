@@ -21,6 +21,16 @@ from produtos_teste import PALAVRAS_IGNORADAS, palavra_aparece, simplificar
 load_dotenv()   # lê o backend/.env
 
 
+def certificado_ssl():
+    """Caminho do ca.pem, quando o banco exige conexão segura (SSL), como o da Aiven.
+    No XAMPP a variável DB_SSL_CA fica vazia e a conexão é normal."""
+    nome = os.getenv("DB_SSL_CA")
+    if not nome:
+        return None
+    # O ca.pem fica na mesma pasta deste arquivo (backend/)
+    return os.path.join(os.path.dirname(__file__), nome)
+
+
 def conectar():
     """Abre uma conexão com o banco usando os dados do .env."""
     return pymysql.connect(
@@ -31,6 +41,7 @@ def conectar():
         database=os.getenv("DB_NOME", "vozver"),
         charset="utf8mb4",
         cursorclass=pymysql.cursors.DictCursor,   # cada linha vem como dicionário
+        ssl_ca=certificado_ssl(),                 # None = sem SSL (XAMPP)
     )
 
 
