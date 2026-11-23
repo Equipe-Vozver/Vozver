@@ -33,14 +33,17 @@ function mostrarListaDoResultado() {
     resultados.forEach((produto, posicao) => {
         const quilo = precoPorQuiloEmTexto(produto);
         const item = document.createElement('li');
+                // Marca em cima (é ela que diferencia "Açúcar Refinado" de "Açúcar Refinado"),
+        // e o preço embaixo do nome, para nunca sair do quadro, nem com a letra grande
         item.innerHTML = `
             <button class="item-produto${posicao === 0 ? ' escolhido' : ''}" type="button" data-posicao="${posicao}">
                 <span class="item-posicao" aria-hidden="true">${posicao + 1}º</span>
                 <span class="item-textos">
+                    <span class="item-marca">${escapar(produto.marca)}</span>
                     <span class="item-nome">${escapar(produto.nome)}</span>
                     <span class="item-detalhe">${escapar(produto.peso)}${quilo ? ' · ' + quilo : ''}</span>
+                    <span class="item-preco">${precoEmTexto(produto.preco)}</span>
                 </span>
-                <span class="item-preco">${precoEmTexto(produto.preco)}</span>
             </button>
         `;
         listaResultado.appendChild(item);
@@ -65,7 +68,7 @@ registrarTela('resultado', {
         mostrarListaDoResultado();
 
         falar(
-            `Encontrei ${quantos}. O mais em conta é ${maisEmConta.nome}, ${precoFalado(maisEmConta.preco)}. ` +
+            `Encontrei ${quantos}. O mais em conta é ${maisEmConta.nome}, ${maisEmConta.marca}, ${precoFalado(maisEmConta.preco)}. ` +
             `${maisEmConta.onde_fica} Toque em um produto da lista para ouvir mais.`
         );
     },

@@ -33,14 +33,15 @@ registrarTela('comparar', {
             const ehOEscolhido = produto.codigo === codigo;
             const item = document.createElement('li');
             item.className = 'item-produto' + (ehOEscolhido ? ' escolhido' : '');
-            item.innerHTML = `
+                        item.innerHTML = `
                 <span class="item-posicao" aria-hidden="true">${posicao + 1}º</span>
                 <span class="item-textos" aria-hidden="true">
+                    <span class="item-marca">${escapar(produto.marca)}</span>
                     <span class="item-nome">${escapar(produto.nome)}</span>
                     <span class="item-detalhe">${escapar(produto.peso)}${ehOEscolhido ? ' · você escolheu' : ''}</span>
+                    <span class="item-preco">${precoEmTexto(produto.preco)}</span>
                 </span>
-                <span class="item-preco" aria-hidden="true">${precoEmTexto(produto.preco)}</span>
-                <span class="so-leitor">${posicao + 1}º: ${escapar(produto.nome)}, ${escapar(produto.peso)},
+                <span class="so-leitor">${posicao + 1}º: ${escapar(produto.nome)}, ${escapar(produto.marca)}, ${escapar(produto.peso)},
                     ${precoFalado(produto.preco)}${ehOEscolhido ? '. Este é o produto que você escolheu.' : ''}</span>
             `;
             listaComparar.appendChild(item);
@@ -48,7 +49,7 @@ registrarTela('comparar', {
 
         // Monta a frase: "1º: Café 3 Corações, 500 gramas, 17 reais e 90 centavos. 2º: ..."
         const frases = lista.map((produto, posicao) =>
-            `${posicao + 1}º: ${produto.nome}, ${produto.peso}, ${precoFalado(produto.preco)}.`
+            `${posicao + 1}º: ${produto.nome}, ${produto.marca}, ${produto.peso}, ${precoFalado(produto.preco)}.`
         );
         falar(`Comparar preços de ${categoria}, do mais barato para o mais caro. ${frases.join(' ')}`);
     },
