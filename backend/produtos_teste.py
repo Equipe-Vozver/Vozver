@@ -160,6 +160,7 @@ PALAVRAS_IGNORADAS = {
     "onde", "fica", "ficam", "o", "a", "os", "as", "um", "uma", "de", "do", "da", "dos", "das",
     "tem", "quero", "procuro", "procurar", "comprar", "e", "eu", "me", "mostra", "preciso",
     "cade", "qual", "quais", "corredor", "no", "na", "por", "favor", "esta", "estao", "achar",
+    "cade", "qual", "quais", "corredor", "no", "na", "por", "favor", "esta", "estao", "achar", "em",
 }
 
 
@@ -170,6 +171,24 @@ def simplificar(texto):
     sem_pontuacao = re.sub(r"[^\w\s]", " ", sem_acento)
     return sem_pontuacao.lower().strip()
 
+
+    # Apelidos: o jeito que a pessoa fala -> o nome que está no mercado.
+# Ex.: muita gente chama o lava-roupas de "sabão em pó" ou "sabão líquido".
+# Para ensinar um apelido novo, é só acrescentar uma linha aqui (sem acento e minúsculo).
+APELIDOS = {
+    "sabao": "lava roupas",
+}
+
+
+def palavras_da_busca(texto):
+    """Separa o que a pessoa falou em palavras, tira as que não ajudam
+    ("onde fica O...") e troca os apelidos pelo nome do mercado."""
+    palavras = []
+    for palavra in simplificar(texto).split():
+        if palavra in PALAVRAS_IGNORADAS:
+            continue
+        palavras.extend(APELIDOS.get(palavra, palavra).split())
+    return palavras
 
 
 
@@ -183,16 +202,19 @@ def buscar_por_codigo(codigo):
 
 
 def palavra_aparece(palavra, texto):
-    """Confere se a palavra está no texto. Aceita plural: "biscoitos" acha "biscoito"."""
-    if palavra in texto:
-        return True
-    return palavra.endswith("s") and len(palavra) > 3 and palavra[:-1] in texto
+    """Confere se a palavra está no texto como palavra INTEIRA.
+    Antes bastava aparecer um pedaço: "agua" achava "mAGUAry" (o suco).
+    Aceita plural nos dois sentidos: "biscoitos" acha "biscoito" e "roupa" acha "roupas"."""
+    for palavra_do_texto in texto.split():
+        if palavra in (palavra_do_texto, palavra_do_texto + "s") or palavra + "s" == palavra_do_texto:
+            return True
+    return False
 
 
 def buscar_por_nome(texto, de=0):
     """Procura pelo que a pessoa falou ou digitou (no nome, na marca ou na categoria).
     Devolve os produtos que mais combinam, do mais barato para o mais caro."""
-    palavras = [p for p in simplificar(texto).split() if p not in PALAVRAS_IGNORADAS]
+    palavras =  palavras_da_busca(texto)
     if not palavras:
         return []
 

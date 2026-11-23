@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 
 from corredores import com_onde_fica
 # As regras de "entender o que a pessoa falou" são as mesmas da lista de teste
-from produtos_teste import PALAVRAS_IGNORADAS, palavra_aparece, simplificar
+from produtos_teste import palavra_aparece, palavras_da_busca, simplificar
 
 load_dotenv()   # lê o backend/.env
 
@@ -163,7 +163,7 @@ def buscar_por_codigo(codigo):
 def buscar_por_nome(texto, de=0):
     """Procura pelo que a pessoa falou ou digitou (no nome, na marca ou na categoria).
     Devolve os produtos que mais combinam, do mais em conta para o mais caro."""
-    palavras = [p for p in simplificar(texto).split() if p not in PALAVRAS_IGNORADAS]
+    palavras = palavras_da_busca(texto)
     if not palavras:
         return []
 
