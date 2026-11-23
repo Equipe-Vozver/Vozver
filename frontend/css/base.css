@@ -214,8 +214,17 @@ button {
 
 .item-textos {
     flex: 1;
+    min-width: 0;                 /* deixa o texto quebrar a linha em vez de empurrar a caixa */
     display: flex;
     flex-direction: column;
+    gap: 2px;
+    overflow-wrap: break-word;    /* palavra comprida (Lava-Roupas) quebra dentro do quadro */
+}
+
+/* A marca vem primeiro e em negrito: é o que diferencia dois produtos com o mesmo nome */
+.item-marca {
+    font-weight: 800;
+    font-size: calc(20px * var(--tamanho));
 }
 
 .item-nome {
@@ -227,12 +236,12 @@ button {
     font-size: calc(14px * var(--tamanho));
 }
 
+/* O preço fica embaixo do nome (e não na direita), para nunca sair do quadro */
 .item-preco {
     font-weight: 800;
-    font-size: calc(20px * var(--tamanho));
-    white-space: nowrap;
-}
-/* ---------- Quem pediu "reduzir movimento" no celular: nada pisca ---------- */
+    font-size: calc(24px * var(--tamanho));
+    margin-top: 6px;
+}/* ---------- Quem pediu "reduzir movimento" no celular: nada pisca ---------- */
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         animation: none !important;
