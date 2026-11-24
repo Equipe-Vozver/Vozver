@@ -60,9 +60,17 @@ async function ligarCamera() {
     }
 
     try {
-        // facingMode "environment" = câmera de trás do celular
+                // facingMode "environment" = câmera de trás do celular.
+        // Pedimos 1280x720: sem isso, muitas câmeras mandam uma imagem pequena
+        // e as barrinhas finas do código viram borrão. "ideal" = se não der, usa o que tiver.
+        // focusMode "continuous" = a câmera fica focando sozinha (quem não tem, ignora).
         fluxoDaCamera = await navigator.mediaDevices.getUserMedia({
-            video: { facingMode: { ideal: 'environment' } },
+            video: {
+                facingMode: { ideal: 'environment' },
+                width: { ideal: 1280 },
+                height: { ideal: 720 },
+                advanced: [{ focusMode: 'continuous' }],
+            },
             audio: false,
         });
         video.srcObject = fluxoDaCamera;

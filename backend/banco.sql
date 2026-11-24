@@ -219,7 +219,7 @@ INSERT INTO produto (nome, ingredientes, fk_categoria_id_categoria, fk_marca_id_
     ('Achocolatado em Pó',
      'Açúcar, cacau, carbonato de cálcio, maltodextrina, extrato de malte de cevada, sal, vitaminas B1 e B6, aromatizantes e emulsificante lecitina. ALÉRGICOS: contém derivados de soja e de cevada. Pode conter leite, aveia, centeio e trigo.',
      3, 6),                                                                                          -- 7
-    ('Achocolatado em Pó 2.0',
+    ('Achocolatado em Pó',
      'ALÉRGICOS: contém derivados de leite e de soja. Pode conter trigo, aveia e cevada. Contém lactose.',
      3, 7),                                                                                          -- 8
     ('Cereal Matinal Sucrilhos',
