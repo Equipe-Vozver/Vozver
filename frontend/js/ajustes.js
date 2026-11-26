@@ -59,7 +59,7 @@ function aplicarAjustes() {
     });
 
     // Cor da barra de cima do celular (onde ficam a hora e a bateria)
-    const corDaBarra = config.tema === 'escuro' ? '#050f22' : '#0e1d3d';
+    const corDaBarra = config.tema === 'escuro' ? '#0a1236' : '#0e1d3d';
     document.querySelector('meta[name="theme-color"]').content = corDaBarra;
 }
 

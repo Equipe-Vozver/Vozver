@@ -26,6 +26,7 @@
 /* Tema claro: fundo lavanda e azul-marinho */
 body[data-tema="claro"] {
     --fundo: #e3edff;
+    --fundo-tela: var(--fundo);
     --texto: #0e1d3d;
     --cartao: #ffffff;
     --borda-cartao: #304470;
@@ -38,17 +39,18 @@ body[data-tema="claro"] {
     --sombra: rgba(81, 86, 92, 0.4);
 }
 
-/* Tema escuro */
+/* Tema escuro: o mesmo azul em degradê da logo */
 body[data-tema="escuro"] {
-    --fundo: #050f22;
+    --fundo: #0a1236;
+    --fundo-tela: linear-gradient(180deg, #0a1236 0%, #13235e 55%, #1c3384 100%);
     --texto: #ffffff;
-    --cartao: #304470;
+    --cartao: #22409a;
     --borda-cartao: #ffffff;
-    --cartao-escolhido: #4f6aa8;
+    --cartao-escolhido: #3b5cc4;
     --botao: #e3edff;
-    --sobre-botao: #050f22;
+    --sobre-botao: #0a1236;
     --preenchido: #ffffff;
-    --trilho: #304470;
+    --trilho: #22409a;
     --borda-trilho: #c9dbff;
     --sombra: rgba(0, 0, 0, 0.6);
 }
@@ -69,7 +71,8 @@ html, body {
 }
 
 body {
-    background: var(--fundo);
+    background: var(--fundo-tela);
+    background-attachment: fixed;   /* o degradê fica parado e cobre a tela toda */
     color: var(--texto);
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
