@@ -211,16 +211,20 @@
             <h1 class="titulo" tabindex="-1">BUSCAR</h1>
 
             <button id="botao-microfone" class="botao-microfone" type="button" aria-pressed="false">
-                <span class="icone" data-icone="microfone" data-tamanho="80"></span>
+                <span class="icone" data-icone="microfone" data-tamanho="110"></span>
                 <span id="texto-microfone" class="texto-microfone">Toque e fale o produto</span>
             </button>
 
             <form id="form-busca" class="linha-form">
                 <label for="campo-busca" class="so-leitor">Nome do produto</label>
-                <input id="campo-busca" type="search" autocomplete="off" placeholder="Ou digite: leite, água...">
+                <input id="campo-busca" type="search" autocomplete="off" placeholder="Ou digite o produto">
                 <button class="botao-pequeno" type="submit">Buscar</button>
             </form>
-                        <!-- Onde a pessoa está: o app deduz sozinho, mas ela pode corrigir aqui -->
+            <!-- Exemplos de busca: ensinam o jeito de falar (só o nome do produto) -->
+            <p class="exemplos-busca">Exemplos: <strong>Toddy</strong>, <strong>sal</strong>,
+                <strong>detergente</strong>, <strong>sabão</strong></p>
+
+            <!-- Onde a pessoa está: o app deduz sozinho, mas ela pode corrigir aqui -->
             <label class="linha-onde-estou">
                 <span>Onde você está agora?</span>
                 <select id="onde-estou">
