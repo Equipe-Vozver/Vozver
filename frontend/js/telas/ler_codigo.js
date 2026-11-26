@@ -23,7 +23,9 @@ let lendo = false;             // false = pausa a procura por códigos
 let relogioDaProcura = null;
 let produtoAtual = null;       // produto mostrado no cartão (null = nenhum)
 let produtoParaComparar = null; // a tela Comparar usa este produto
+let relogioDaDica = null;      // depois de 10 s sem achar o código, o app dá uma dica
 
+const botaoLanterna = document.getElementById('botao-lanterna');
 // A biblioteca reserva precisa de um arquivo .wasm (o "motor" da leitura).
 // Aqui dizemos para ela usar o nosso, da pasta vendor/, e não baixar da internet.
 BarcodeDetectionAPI.setZXingModuleOverrides({
@@ -79,10 +81,14 @@ async function ligarCamera() {
         if (!leitor) {
             leitor = await criarLeitor();
         }
+        // A lanterna só aparece se a câmera tiver luz (celular Android, câmera de trás)
+        const trilha = fluxoDaCamera.getVideoTracks()[0];
+        const recursos = trilha.getCapabilities ? trilha.getCapabilities() : {};
+        botaoLanterna.hidden = !recursos.torch;
+
         // Só começa a procurar se não tiver um produto aberto no cartão
         if (!produtoAtual) {
-            lendo = true;
-            procurarCodigo();
+            comecarAProcurar();
         }
     } catch (erro) {
         if (erro.name === 'NotAllowedError') {
@@ -96,6 +102,8 @@ async function ligarCamera() {
 function desligarCamera() {
     lendo = false;
     clearTimeout(relogioDaProcura);
+    clearTimeout(relogioDaDica);
+    mostrarLanterna(false);   // a luz apaga junto com a câmera
     if (fluxoDaCamera) {
         fluxoDaCamera.getTracks().forEach((parte) => parte.stop());   // apaga a luz da câmera
         fluxoDaCamera = null;
@@ -110,6 +118,43 @@ function mostrarSemCamera(texto) {
 }
 
 document.getElementById('botao-ligar-camera').addEventListener('click', ligarCamera);
+// ---------- Lanterna (a luz do celular) ----------
+// Ajuda quem tem baixa visão em corredor escuro ou com reflexo na embalagem.
+async function mostrarLanterna(ligada) {
+    botaoLanterna.setAttribute('aria-pressed', String(ligada));
+    botaoLanterna.textContent = ligada ? 'Desligar lanterna' : 'Ligar lanterna';
+    if (!fluxoDaCamera) {
+        botaoLanterna.hidden = true;   // sem câmera, sem lanterna
+        return;
+    }
+    try {
+        await fluxoDaCamera.getVideoTracks()[0].applyConstraints({ advanced: [{ torch: ligada }] });
+    } catch (erro) {}
+}
+
+botaoLanterna.addEventListener('click', () => {
+    const ligar = botaoLanterna.getAttribute('aria-pressed') !== 'true';
+    mostrarLanterna(ligar);
+    falar(ligar ? 'Lanterna ligada.' : 'Lanterna desligada.');
+});
+
+// ---------- Dica falada ----------
+// Começa a procurar e marca 10 segundos: se não achar nada, fala UMA dica
+function comecarAProcurar() {
+    lendo = true;
+    clearTimeout(relogioDaDica);
+    relogioDaDica = setTimeout(darDica, 10000);
+    procurarCodigo();
+}
+
+function darDica() {
+    if (!lendo || telaAtual !== 'ler_codigo') {
+        return;
+    }
+    const lanterna = botaoLanterna.hidden ? '' : ' Se estiver escuro, toque em Ligar lanterna.';
+    falar('Ainda não achei o código. Ele costuma ficar atrás ou embaixo da embalagem. ' +
+          'Gire o produto devagar, a um palmo da câmera.' + lanterna);
+}
 
 // ---------- Procurar o código na imagem ----------
 // Olha a imagem da câmera 4 vezes por segundo até achar um código
@@ -132,6 +177,7 @@ async function procurarCodigo() {
 // A câmera achou um código, por exemplo "7890000000011"
 function codigoLido(codigo) {
     lendo = false;   // para de ler, senão lê o mesmo código várias vezes
+    clearTimeout(relogioDaDica);   // achou: não precisa mais da dica
     if (navigator.vibrate) {
         navigator.vibrate(100);   // vibra rapidinho: avisa que leu (só no Android)
     }
@@ -141,8 +187,7 @@ function codigoLido(codigo) {
 // Volta a procurar códigos (se a pessoa ainda estiver nesta tela)
 function voltarALer() {
     if (telaAtual === 'ler_codigo' && fluxoDaCamera && !produtoAtual) {
-        lendo = true;
-        procurarCodigo();
+        comecarAProcurar();
     }
 }
 

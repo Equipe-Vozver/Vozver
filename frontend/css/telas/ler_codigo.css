@@ -177,3 +177,31 @@
     -webkit-mask: url('../../img/balanca.png') center / contain no-repeat;
     mask: url('../../img/balanca.png') center / contain no-repeat;
 }
+
+/* Botão da lanterna: embaixo, no meio da câmera, por cima da imagem */
+.botao-lanterna {
+    position: absolute;
+    left: 50%;
+    bottom: 16px;
+    transform: translateX(-50%);
+    z-index: 1;
+    min-height: 56px;
+    padding: 0 24px;
+    border-radius: 30px;
+    border: 3px solid var(--branco);
+    background: var(--preto);
+    color: var(--branco);
+    font-weight: 800;
+    font-size: calc(18px * var(--tamanho));
+    white-space: nowrap;
+}
+
+/* Ligada: o botão "acende" (fundo branco) */
+.botao-lanterna[aria-pressed="true"] {
+    background: var(--branco);
+    color: var(--preto);
+}
+
+.botao-lanterna[hidden] {
+    display: none;
+}
