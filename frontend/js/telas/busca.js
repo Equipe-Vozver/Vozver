@@ -33,7 +33,7 @@ registrarTela('busca', {
         seletorOndeEstou.value = String(corredorAtual);   // mostra o último corredor deduzido
         const ondeEsta = corredorAtual === 0 ? '' : `Você está no corredor ${corredorAtual}. `;
         if (Reconhecedor) {
-            falar(`Buscar por voz. ${ondeEsta}Toque no microfone e fale o nome do produto, por exemplo: leite. Para dizer onde você está, fale: estou no corredor 2.`);
+            falar(`Buscar por voz. ${ondeEsta}Toque no microfone e fale o nome do produto, por exemplo: Toddy, sal ou detergente. Para dizer onde você está, fale: estou no corredor 2.`);
         } else {
             falar(`Buscar. ${ondeEsta}Este navegador não tem ditado. Digite o nome do produto no campo de busca.`);
         }

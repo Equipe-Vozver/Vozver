@@ -51,10 +51,15 @@ function mostrarListaDoResultado() {
 }
 
 registrarTela('resultado', {
-    aoAbrir() {
+    aoAbrir({ voltando }) {
         // Abriu pelo endereço (#resultado) sem ter buscado nada: volta para a busca
         if (resultados.length === 0) {
             trocarPara('busca');
+            return;
+        }
+        // Voltou do mapa: a tela continua como estava, só avisa onde a pessoa está
+        if (voltando && produtoDoCaminho) {
+            falar(`Resultado. ${produtoDoCaminho.nome}, corredor ${produtoDoCaminho.corredor}.`);
             return;
         }
 
@@ -99,4 +104,40 @@ document.getElementById('botao-ouvir-caminho').addEventListener('click', () => {
     if (produtoDoCaminho) {
         falar(produtoDoCaminho.onde_fica);
     }
+});
+
+// ---------- Mapa da loja ----------
+// Onde cada corredor fica no desenho (para a fala e para o leitor de tela)
+const posicaoNoMapa = {
+    1: 'à esquerda, o primeiro a partir da entrada',
+    2: 'à esquerda, o segundo a partir da entrada',
+    3: 'à esquerda, no fundo da loja',
+    4: 'à direita, no fundo da loja',
+};
+
+document.getElementById('botao-ver-mapa').addEventListener('click', () => irPara('mapa'));
+
+registrarTela('mapa', {
+    aoAbrir() {
+        // Abriu pelo endereço (#mapa) sem ter buscado nada: volta para a busca
+        if (!produtoDoCaminho) {
+            trocarPara('busca');
+            return;
+        }
+        const produto = produtoDoCaminho;
+        document.getElementById('mapa-corredor-nome').textContent = corredorResultado.textContent;
+
+        // Pinta no mapa o corredor do produto
+        document.querySelectorAll('.mapa-corredor').forEach((corredor) => {
+            corredor.classList.toggle('destaque', Number(corredor.dataset.corredor) === produto.corredor);
+        });
+
+        // A mesma frase é falada e vira a descrição do mapa para o leitor de tela
+        const secao = produto.secao ? `, ${produto.secao},` : '';   // "corredor 2, Matinais, está"
+        const cor = config.tema === 'escuro' ? 'branco' : 'azul';
+        const descricao = `Mapa da loja. O corredor ${produto.corredor}${secao} está pintado de ${cor}, ` +
+            `${posicaoNoMapa[produto.corredor]}.`;
+        document.getElementById('mapa-loja').setAttribute('aria-label', descricao);
+        falar(descricao);
+    },
 });

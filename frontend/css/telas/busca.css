@@ -4,7 +4,7 @@
 
 /* ---------- 10. Buscar por voz ---------- */
 .botao-microfone {
-    min-height: 165px;
+    min-height: 220px;
     border-radius: 35px;
     border: 2px solid var(--borda-cartao);
     background: var(--cartao);
@@ -27,7 +27,7 @@
 }
 
 .texto-microfone {
-    font-size: calc(18px * var(--tamanho));
+    font-size: calc(22px * var(--tamanho));
 }
 /* "Onde você está agora?": o seletor do corredor */
 
@@ -48,4 +48,12 @@
     font-family: inherit;
     font-weight: 700;
     font-size: calc(22px * var(--tamanho));
+}
+
+/* "Exemplos: Toddy, sal, detergente, sabão" */
+.exemplos-busca {
+    margin: 0;
+    text-align: center;
+    font-weight: 500;
+    font-size: calc(18px * var(--tamanho));
 }
