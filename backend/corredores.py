@@ -56,7 +56,7 @@ def com_onde_fica(produto, de=0):
     """Devolve uma cópia do produto com a frase de onde ele fica e como chegar lá.
     "de" = onde a pessoa está agora (0 = entrada)."""
     copia = dict(produto)
-        # Se o produto veio do banco, ele tem a seção: "corredor 2, Matinais"
+    # Se o produto veio do banco, ele tem a seção: "corredor 2, Matinais"
     secao = f', {produto["secao"]}' if produto.get("secao") else ""
     copia["onde_fica"] = (
         f'{produto["categoria"]} fica no corredor {produto["corredor"]}{secao}. '
