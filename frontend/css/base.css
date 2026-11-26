@@ -41,14 +41,14 @@ body[data-tema="claro"] {
 
 /* Tema escuro: o mesmo azul em degradê da logo */
 body[data-tema="escuro"] {
-    --fundo: #0a1236;
-    --fundo-tela: linear-gradient(180deg, #0a1236 0%, #13235e 55%, #1c3384 100%);
+    --fundo: #000a30;
+        --fundo-tela: linear-gradient(180deg, #000a30 0%, #07154e 55%, #1a3484 100%);
     --texto: #ffffff;
     --cartao: #22409a;
     --borda-cartao: #ffffff;
     --cartao-escolhido: #3b5cc4;
     --botao: #e3edff;
-    --sobre-botao: #0a1236;
+    --sobre-botao: #000a30;
     --preenchido: #ffffff;
     --trilho: #22409a;
     --borda-trilho: #c9dbff;
