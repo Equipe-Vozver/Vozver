@@ -251,11 +251,42 @@
                 <p id="resultado-corredor" class="caminho-corredor"></p>
                 <p id="resultado-caminho" class="caminho-texto"></p>
             </div>
+
             <button id="botao-ouvir-caminho" class="botao-pequeno" type="button">Ouvir o caminho de novo</button>
+            <button id="botao-ver-mapa" class="botao-pequeno" type="button">Ver no mapa</button>
 
             <ul id="lista-resultado" class="lista-produtos" aria-label="Produtos encontrados"></ul>
         </div>
         <button class="botao-voltar" type="button">BUSCAR OUTRO PRODUTO</button>
+    </section>
+
+    <!-- ============ MAPA DA LOJA ============ -->
+    <!-- Abre pelo botão "Ver no mapa" do resultado. O corredor do produto fica pintado. -->
+    <section id="mapa" class="tela">
+        <div class="conteudo">
+            <h1 class="titulo" tabindex="-1">MAPA DA LOJA</h1>
+            <div class="cartao-caminho">
+                <p id="mapa-corredor-nome" class="caminho-corredor"></p>
+            </div>
+            <!-- role="img": o leitor de tela lê a descrição (aria-label), que o resultado.js escreve -->
+            <svg id="mapa-loja" class="mapa-loja" viewBox="0 0 320 220" role="img" aria-label="Mapa da loja">
+                <rect class="mapa-principal" x="140" y="10" width="40" height="180" rx="8"/>
+                <g class="mapa-corredor" data-corredor="3">
+                    <rect x="8" y="14" width="126" height="46" rx="10"/><text x="71" y="38">3 · Mercearia</text>
+                </g>
+                <g class="mapa-corredor" data-corredor="2">
+                    <rect x="8" y="74" width="126" height="46" rx="10"/><text x="71" y="98">2 · Matinais</text>
+                </g>
+                <g class="mapa-corredor" data-corredor="1">
+                    <rect x="8" y="134" width="126" height="46" rx="10"/><text x="71" y="158">1 · Bebidas</text>
+                </g>
+                <g class="mapa-corredor" data-corredor="4">
+                    <rect x="186" y="14" width="126" height="46" rx="10"/><text x="249" y="38">4 · Limpeza</text>
+                </g>
+                <text class="mapa-entrada" x="160" y="208">▲ ENTRADA</text>
+            </svg>
+        </div>
+        <button class="botao-voltar" type="button">VOLTAR</button>
     </section>
     <!-- ============ 12. POLÍTICA DE PRIVACIDADE ============ -->
     <section id="politica" class="tela">

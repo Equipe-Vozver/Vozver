@@ -26,6 +26,36 @@
     font-size: calc(19px * var(--tamanho));
     line-height: 1.4;
 }
+/* Tela do MAPA DA LOJA: corredores de cartão; o do produto fica pintado */
+.mapa-loja {
+    flex-shrink: 0;   /* sem isso a coluna "espreme" o mapa até sumir */
+    width: 100%;
+    height: auto;
+}
+.mapa-loja rect {
+    fill: var(--cartao);
+    stroke: var(--borda-cartao);
+    stroke-width: 2;
+}
+.mapa-loja text {
+    fill: var(--texto);
+    font-weight: 700;
+    font-size: 16px;
+    text-anchor: middle;
+    dominant-baseline: middle;
+}
+.mapa-loja .mapa-principal {
+    fill: var(--trilho);
+    stroke: none;
+}
+.mapa-corredor.destaque rect {
+    fill: var(--preenchido);
+    stroke-width: 4;
+}
+.mapa-corredor.destaque text {
+    fill: var(--fundo);
+    font-weight: 800;
+}
 
 /* "BUSCAR OUTRO PRODUTO" é mais comprido que "VOLTAR": letra um pouco menor para caber */
 #resultado .botao-voltar {
