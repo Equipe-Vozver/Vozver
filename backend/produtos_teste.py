@@ -176,6 +176,7 @@ def simplificar(texto):
 # Para ensinar um apelido novo, é só acrescentar uma linha aqui (sem acento e minúsculo).
 APELIDOS = {
     "sabao": "lava roupas",
+    "miojo": "macarrao instantaneo",  # "Miojo" é marca da Nissin, mas todo mundo chama assim
 }
 
 

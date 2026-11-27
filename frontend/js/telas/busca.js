@@ -46,7 +46,7 @@ registrarTela('busca', {
         seletorOndeEstou.value = String(corredorAtual);   // mostra o último corredor deduzido
         const ondeEsta = corredorAtual === 0 ? '' : `Você está no corredor ${corredorAtual}. `;
         if (Reconhecedor) {
-            falar(`Buscar por voz. ${ondeEsta}Toque no microfone e fale o nome do produto, por exemplo: Toddy, sal ou detergente. Para dizer onde você está, fale: estou no corredor 2.`);
+            falar(`Buscar por voz. ${ondeEsta}Toque no microfone e fale o nome do produto, por exemplo: Toddy, sal ou miojo. Para dizer onde você está, fale: estou no corredor 2.`);
         } else {
             falar(`Buscar. ${ondeEsta}${SEM_DITADO}`);
         }
@@ -172,7 +172,7 @@ async function buscar(texto) {
     }
     if (resultados.length === 0) {
         resumoBusca.textContent = `Não encontrei "${texto}".`;
-        falar(`Não encontrei ${texto}. Tente falar de outro jeito, por exemplo: Toddy, sal ou detergente.`);
+        falar(`Não encontrei ${texto}. Tente falar de outro jeito, por exemplo: Toddy, sal ou miojo.`);
         return;
     }
 
