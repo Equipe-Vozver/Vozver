@@ -24,8 +24,8 @@ let relogioDaProcura = null;
 let produtoAtual = null;       // produto mostrado no cartão (null = nenhum)
 let produtoParaComparar = null; // a tela Comparar usa este produto
 let relogioDaDica = null;      // depois de 10 s sem achar o código, o app dá uma dica
-
 const botaoLanterna = document.getElementById('botao-lanterna');
+
 // A biblioteca reserva precisa de um arquivo .wasm (o "motor" da leitura).
 // Aqui dizemos para ela usar o nosso, da pasta vendor/, e não baixar da internet.
 BarcodeDetectionAPI.setZXingModuleOverrides({
@@ -62,7 +62,7 @@ async function ligarCamera() {
     }
 
     try {
-                // facingMode "environment" = câmera de trás do celular.
+        // facingMode "environment" = câmera de trás do celular.
         // Pedimos 1280x720: sem isso, muitas câmeras mandam uma imagem pequena
         // e as barrinhas finas do código viram borrão. "ideal" = se não der, usa o que tiver.
         // focusMode "continuous" = a câmera fica focando sozinha (quem não tem, ignora).
@@ -118,6 +118,7 @@ function mostrarSemCamera(texto) {
 }
 
 document.getElementById('botao-ligar-camera').addEventListener('click', ligarCamera);
+
 // ---------- Lanterna (a luz do celular) ----------
 // Ajuda quem tem baixa visão em corredor escuro ou com reflexo na embalagem.
 async function mostrarLanterna(ligada) {
@@ -198,19 +199,18 @@ async function mostrarProdutoDoCodigo(codigo, digitado = false) {
     try {
         produto = await buscarProdutoPorCodigo(codigo);
     } catch (erro) {
-        falar('Não consegui falar com o servidor do vozver. Confira a internet.');
-        if (!digitado) {
-            setTimeout(voltarALer, 3000);
-        }
-        return;
+        produto = undefined;   // undefined = não falou com o servidor; null = não achou
     }
 
     if (!produto) {
-        if (digitado) {
-            falar('Produto não encontrado. Confira os números e tente de novo.');
+        if (produto === undefined) {
+            falar('Não consegui falar com o servidor do vozver. Confira a internet.');
         } else {
-            falar('Produto não encontrado. Vou tentar de novo em 3 segundos.');
-            setTimeout(voltarALer, 3000);
+            falar(digitado ? 'Produto não encontrado. Confira os números e tente de novo.'
+                           : 'Produto não encontrado. Vou tentar de novo em 3 segundos.');
+        }
+        if (!digitado) {
+            setTimeout(voltarALer, 3000);   // a câmera tenta de novo sozinha
         }
         return;
     }
