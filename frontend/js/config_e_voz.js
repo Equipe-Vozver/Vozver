@@ -1,4 +1,5 @@
-// ===== Ajustes do vozver e a voz =====
+// ===== Configurações do vozver e a voz (config_e_voz.js) =====
+// (Não confundir com js/telas/ajustes.js, que é só a TELA de Ajustes.)
 // Aqui ficam:
 //   - as escolhas da pessoa (tema, tamanho da letra, velocidade da voz), salvas no celular;
 //   - a função falar(), que lê um texto em voz alta.
@@ -59,7 +60,7 @@ function aplicarAjustes() {
     });
 
     // Cor da barra de cima do celular (onde ficam a hora e a bateria)
-        const corDaBarra = config.tema === 'escuro' ? '#000a30' : '#0e1d3d';
+    const corDaBarra = config.tema === 'escuro' ? '#000a30' : '#0e1d3d';
     document.querySelector('meta[name="theme-color"]').content = corDaBarra;
 }
 
