@@ -159,7 +159,6 @@ PRODUTOS = [
 PALAVRAS_IGNORADAS = {
     "onde", "fica", "ficam", "o", "a", "os", "as", "um", "uma", "de", "do", "da", "dos", "das",
     "tem", "quero", "procuro", "procurar", "comprar", "e", "eu", "me", "mostra", "preciso",
-    "cade", "qual", "quais", "corredor", "no", "na", "por", "favor", "esta", "estao", "achar",
     "cade", "qual", "quais", "corredor", "no", "na", "por", "favor", "esta", "estao", "achar", "em",
 }
 
@@ -172,7 +171,7 @@ def simplificar(texto):
     return sem_pontuacao.lower().strip()
 
 
-    # Apelidos: o jeito que a pessoa fala -> o nome que está no mercado.
+# Apelidos: o jeito que a pessoa fala -> o nome que está no mercado.
 # Ex.: muita gente chama o lava-roupas de "sabão em pó" ou "sabão líquido".
 # Para ensinar um apelido novo, é só acrescentar uma linha aqui (sem acento e minúsculo).
 APELIDOS = {
@@ -189,8 +188,6 @@ def palavras_da_busca(texto):
             continue
         palavras.extend(APELIDOS.get(palavra, palavra).split())
     return palavras
-
-
 
 
 def buscar_por_codigo(codigo):
@@ -211,24 +208,26 @@ def palavra_aparece(palavra, texto):
     return False
 
 
-def buscar_por_nome(texto, de=0):
-    """Procura pelo que a pessoa falou ou digitou (no nome, na marca ou na categoria).
-    Devolve os produtos que mais combinam, do mais barato para o mais caro."""
-    palavras =  palavras_da_busca(texto)
-    if not palavras:
-        return []
-
+def mais_parecidos(produtos, texto, ordem):
+    """Os produtos que mais combinam com o que a pessoa falou (no nome, na marca ou na categoria).
+    Quem acerta mais palavras ganha. Os que empatam vêm na "ordem" pedida (ex.: do mais barato).
+    O banco.py usa esta mesma função: assim a regra da busca fica escrita num lugar só."""
+    palavras = palavras_da_busca(texto)
     encontrados = []
-    for produto in PRODUTOS:
+    for produto in produtos:
         onde_procurar = simplificar(f'{produto["nome"]} {produto["marca"]} {produto["categoria"]}')
         acertos = sum(1 for palavra in palavras if palavra_aparece(palavra, onde_procurar))
         if acertos > 0:
             encontrados.append((acertos, produto))
+    if not encontrados:
+        return []
+    melhor = max(acertos for acertos, produto in encontrados)
+    return sorted((produto for acertos, produto in encontrados if acertos == melhor), key=ordem)
 
-    # Quem acertou mais palavras vem primeiro; empate: o mais barato primeiro
-    encontrados.sort(key=lambda par: (-par[0], par[1]["preco"]))
-    melhor = encontrados[0][0] if encontrados else 0
-    return [com_onde_fica(produto, de) for acertos, produto in encontrados if acertos == melhor]
+
+def buscar_por_nome(texto, de=0):
+    """Procura pelo que a pessoa falou ou digitou. Empate: o mais barato primeiro."""
+    return [com_onde_fica(produto, de) for produto in mais_parecidos(PRODUTOS, texto, lambda p: p["preco"])]
 
 
 def buscar_por_categoria(categoria):

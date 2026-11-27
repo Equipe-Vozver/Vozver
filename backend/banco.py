@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 
 from corredores import com_onde_fica
 # As regras de "entender o que a pessoa falou" são as mesmas da lista de teste
-from produtos_teste import palavra_aparece, palavras_da_busca, simplificar
+from produtos_teste import mais_parecidos
 
 load_dotenv()   # lê o backend/.env
 
@@ -161,26 +161,10 @@ def buscar_por_codigo(codigo):
 
 
 def buscar_por_nome(texto, de=0):
-    """Procura pelo que a pessoa falou ou digitou (no nome, na marca ou na categoria).
-    Devolve os produtos que mais combinam, do mais em conta para o mais caro."""
-    palavras = palavras_da_busca(texto)
-    if not palavras:
-        return []
-
-    # São poucos produtos: busca todos e compara aqui no Python,
-    # do mesmo jeito da lista de teste (sem acento, aceita plural).
-    encontrados = []
-    for linha in consultar("SELECT * FROM vw_produtos"):
-        produto = montar_produto(linha)
-        onde_procurar = simplificar(f'{produto["nome"]} {produto["marca"]} {produto["categoria"]}')
-        acertos = sum(1 for palavra in palavras if palavra_aparece(palavra, onde_procurar))
-        if acertos > 0:
-            encontrados.append((acertos, produto))
-
-    # Quem acertou mais palavras vem primeiro; empate: o mais em conta primeiro
-    encontrados.sort(key=lambda par: (-par[0], ordem_de_preco(par[1])))
-    melhor = encontrados[0][0] if encontrados else 0
-    return [com_onde_fica(produto, de) for acertos, produto in encontrados if acertos == melhor]
+    """Procura pelo que a pessoa falou ou digitou, do mais em conta para o mais caro.
+    São poucos produtos: pega todos e compara no Python, com a mesma regra da lista de teste."""
+    produtos = [montar_produto(linha) for linha in consultar("SELECT * FROM vw_produtos")]
+    return [com_onde_fica(produto, de) for produto in mais_parecidos(produtos, texto, ordem_de_preco)]
 
 
 def buscar_por_categoria(categoria):
