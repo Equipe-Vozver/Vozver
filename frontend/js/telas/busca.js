@@ -16,6 +16,9 @@ const textoMicrofone = document.getElementById('texto-microfone');
 const campoBusca = document.getElementById('campo-busca');
 const resumoBusca = document.getElementById('busca-resumo');
 
+// Frase usada em dois lugares (ao abrir a tela e ao tocar no microfone)
+const SEM_DITADO = 'Este navegador não tem ditado. Digite o nome do produto no campo de busca.';
+
 let reconhecedor = null;
 let ouvindo = false;
 let resultados = [];   // produtos encontrados na última busca
@@ -28,6 +31,16 @@ function mostrarOuvindo(sim) {
     textoMicrofone.textContent = sim ? 'Ouvindo... toque para parar' : 'Toque e fale o produto';
 }
 
+// Guarda onde a pessoa está (0 = entrada) e mostra no seletor "Onde você está agora?"
+function mudarCorredor(numero) {
+    corredorAtual = numero;
+    seletorOndeEstou.value = String(numero);
+}
+
+function confirmarOndeEsta() {
+    falar(corredorAtual === 0 ? 'Certo, você está na entrada.' : `Certo, você está no corredor ${corredorAtual}.`);
+}
+
 registrarTela('busca', {
     aoAbrir() {
         seletorOndeEstou.value = String(corredorAtual);   // mostra o último corredor deduzido
@@ -35,7 +48,7 @@ registrarTela('busca', {
         if (Reconhecedor) {
             falar(`Buscar por voz. ${ondeEsta}Toque no microfone e fale o nome do produto, por exemplo: Toddy, sal ou detergente. Para dizer onde você está, fale: estou no corredor 2.`);
         } else {
-            falar(`Buscar. ${ondeEsta}Este navegador não tem ditado. Digite o nome do produto no campo de busca.`);
+            falar(`Buscar. ${ondeEsta}${SEM_DITADO}`);
         }
     },
     aoSair() {
@@ -49,7 +62,7 @@ registrarTela('busca', {
 // ---------- Microfone ----------
 botaoMicrofone.addEventListener('click', () => {
     if (!Reconhecedor) {
-        falar('Este navegador não tem ditado. Digite o nome do produto no campo de busca.');
+        falar(SEM_DITADO);
         campoBusca.focus();
         return;
     }
@@ -95,11 +108,12 @@ document.getElementById('form-busca').addEventListener('submit', (evento) => {
     evento.preventDefault();
     buscar(campoBusca.value);
 });
+
 // ---------- Onde você está agora ----------
 // Se o app deduziu errado, a pessoa corrige aqui
 seletorOndeEstou.addEventListener('change', () => {
     corredorAtual = Number(seletorOndeEstou.value);
-    falar(corredorAtual === 0 ? 'Certo, você está na entrada.' : `Certo, você está no corredor ${corredorAtual}.`);
+    confirmarOndeEsta();
 });
 
 // ---------- "Estou no corredor 2" (falando ou digitando) ----------
@@ -131,7 +145,7 @@ async function buscar(texto) {
         falar('Fale ou digite o nome de um produto.');
         return;
     }
-    
+
     // A pessoa disse onde está? ("estou no corredor 2", "estou na entrada")
     const ondeEsta = entenderOndeEstou(texto);
     if (ondeEsta) {
@@ -140,13 +154,12 @@ async function buscar(texto) {
             falar(`Esse corredor não existe. O mercado tem os corredores de 1 a ${ultimoCorredor}.`);
             return;
         }
-        corredorAtual = ondeEsta.corredor;
-        seletorOndeEstou.value = String(corredorAtual);
+        mudarCorredor(ondeEsta.corredor);
         texto = ondeEsta.resto;
 
         // Só disse onde está, sem pedir produto: confirma e para aqui
         if (texto.replace(/[^a-z0-9]/g, '') === '') {
-            falar(corredorAtual === 0 ? 'Certo, você está na entrada.' : `Certo, você está no corredor ${corredorAtual}.`);
+            confirmarOndeEsta();
             return;
         }
     }
@@ -159,14 +172,13 @@ async function buscar(texto) {
     }
     if (resultados.length === 0) {
         resumoBusca.textContent = `Não encontrei "${texto}".`;
-        falar(`Não encontrei ${texto}. Tente falar de outro jeito, por exemplo: leite, água ou detergente.`);
+        falar(`Não encontrei ${texto}. Tente falar de outro jeito, por exemplo: Toddy, sal ou detergente.`);
         return;
     }
 
     resumoBusca.textContent = '';
     // A pessoa vai até o corredor do mais em conta: a próxima busca começa de lá
-    corredorAtual = resultados[0].corredor;
-    seletorOndeEstou.value = String(corredorAtual);
+    mudarCorredor(resultados[0].corredor);
     // Os produtos aparecem numa tela só deles, que também fala o resultado
     irPara('resultado');
 }
