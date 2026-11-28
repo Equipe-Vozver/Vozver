@@ -29,6 +29,7 @@
 .texto-microfone {
     font-size: calc(22px * var(--tamanho));
 }
+
 /* "Onde você está agora?": o seletor do corredor */
 
 .linha-onde-estou {
@@ -36,7 +37,8 @@
     flex-direction: column;
     gap: 8px;
     font-size: calc(22px * var(--tamanho));
-    margin-top:auto;
+    text-align: center;
+    margin-top: auto;
 }
 
 .linha-onde-estou select {
