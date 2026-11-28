@@ -88,6 +88,9 @@ function falar(texto, nivelVoz = config.nivelVoz) {
     // As vozes "Google" do Chrome no computador precisam de internet e ficariam mudas no Demoday.
     const vozesEmPortugues = speechSynthesis.getVoices().filter((voz) => voz.lang === 'pt-BR');
     const vozBrasileira = vozesEmPortugues.find((voz) => voz.localService) || vozesEmPortugues[0];
+      if (vozBrasileira) {
+        fala.voice = vozBrasileira;
+    }
 
     fala.onerror = (evento) => {
         if (evento.error === 'not-allowed') {
