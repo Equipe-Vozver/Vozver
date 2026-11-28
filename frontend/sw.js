@@ -16,7 +16,8 @@ self.addEventListener('fetch', (evento) => {
         return;
     }
     evento.respondWith(
-        fetch(pedido)
+        // "no-cache": pergunta ao servidor se tem versão nova, em vez de usar a cópia velha do navegador
+        fetch(pedido, { cache: 'no-cache' })
             .then((resposta) => {
                 // Guarda uma cópia da resposta para usar quando estiver sem internet
                 if (resposta.ok) {
