@@ -90,6 +90,9 @@ botaoMicrofone.addEventListener('click', () => {
     reconhecedor.onerror = (evento) => {
         if (evento.error === 'not-allowed') {
             falar('O vozver precisa do microfone. Permita o uso do microfone no navegador, ou digite o produto.');
+        } else if (evento.error === 'network') {
+            // O ditado do Chrome usa a internet para entender a fala
+            falar('Sem internet o microfone não funciona. Digite o nome do produto no campo de busca.');
         } else if (evento.error === 'no-speech') {
             falar('Não ouvi nada. Toque no microfone e fale de novo.');
         } else if (evento.error !== 'aborted') {
