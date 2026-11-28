@@ -103,13 +103,14 @@
 /* Campo de texto + botão lado a lado (código e busca) */
 .linha-form {
     display: flex;
+    flex-direction:column;
     gap: 8px;
 }
 
 .linha-form input {
     flex: 1;
     min-width: 0;
-    min-height: 56px;
+    min-height: 72px;
     padding: 0 14px;
     border-radius: 16px;
     border: 2px solid var(--borda-cartao);
@@ -117,7 +118,7 @@
     color: var(--texto);
     font-family: inherit;
     font-weight: 500;
-    font-size: calc(17px * var(--tamanho));
+    font-size: calc(22px * var(--tamanho));
 }
 
 /* Cartão do produto encontrado */
