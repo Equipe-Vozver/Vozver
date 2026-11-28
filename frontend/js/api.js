@@ -6,37 +6,43 @@
 //   GET api/produtos/codigo/7890000000011   -> um produto pelo código de barras
 //   GET api/produtos/busca?texto=arroz      -> produtos pelo nome (busca por voz)
 //   GET api/produtos/categoria/Café         -> produtos da mesma categoria (comparar preços)
+//
+// SEM INTERNET: se o servidor não responder em 4 segundos (ou der erro),
+// a resposta vem da cópia dos produtos guardada no celular (js/sem_internet.js).
+
+// Pergunta ao servidor. Se não der, usa o plano reserva "semInternet".
+async function perguntarAoServidor(endereco, semInternet) {
+    try {
+        // AbortSignal.timeout: desiste depois de 4 segundos (Wi-Fi ligado, mas sem internet)
+        const resposta = await fetch(endereco, { signal: AbortSignal.timeout(4000) });
+        if (resposta.status === 404) {
+            return null;   // 404 = "não encontrado"
+        }
+        if (resposta.ok) {
+            return await resposta.json();
+        }
+    } catch (erro) {
+        // Sem internet ou demorou demais: segue para a cópia guardada
+    }
+    return semInternet();
+}
 
 // Procura um produto pelo código de barras. Devolve null se não achar.
-async function buscarProdutoPorCodigo(codigo) {
-    const resposta = await fetch('api/produtos/codigo/' + encodeURIComponent(codigo));
-    if (resposta.status === 404) {
-        return null;   // 404 = "não encontrado"
-    }
-    if (!resposta.ok) {
-        throw new Error('O servidor respondeu com erro ' + resposta.status);
-    }
-    return resposta.json();
+function buscarProdutoPorCodigo(codigo) {
+    return perguntarAoServidor('api/produtos/codigo/' + encodeURIComponent(codigo),
+        () => codigoSemInternet(codigo));
 }
 
 // Procura pelo que a pessoa falou ou digitou. Devolve uma lista (do mais barato ao mais caro).
-async function buscarProdutosPorNome(texto) {
-    const resposta = await fetch(
-        'api/produtos/busca?texto=' + encodeURIComponent(texto) + '&de=' + corredorAtual
-    );
-    if (!resposta.ok) {
-        throw new Error('O servidor respondeu com erro ' + resposta.status);
-    }
-    return resposta.json();
+function buscarProdutosPorNome(texto) {
+    return perguntarAoServidor('api/produtos/busca?texto=' + encodeURIComponent(texto) + '&de=' + corredorAtual,
+        () => nomeSemInternet(texto, corredorAtual));
 }
 
 // Produtos da mesma categoria, do mais barato para o mais caro (a balança)
-async function buscarProdutosDaCategoria(categoria) {
-    const resposta = await fetch('api/produtos/categoria/' + encodeURIComponent(categoria));
-    if (!resposta.ok) {
-        throw new Error('O servidor respondeu com erro ' + resposta.status);
-    }
-    return resposta.json();
+function buscarProdutosDaCategoria(categoria) {
+    return perguntarAoServidor('api/produtos/categoria/' + encodeURIComponent(categoria),
+        () => categoriaSemInternet(categoria));
 }
 
 // ---------- Ajudantes para mostrar e falar preços ----------
