@@ -23,7 +23,11 @@ Depois abra:
 - **http://localhost:8000/docs**: a página para testar a API
 
 Códigos de barras para testar (campo "Digitar o código", na tela da câmera):
-`7890000000011` (café 500 g), `7890000000035` (leite condensado), `7890000000042` (biscoito), `7890000000097` (arroz).
+Com o banco (.env): `7896032501010` (açúcar Da Barra), `7892840819507` (Toddy), `7891079000229` (Miojo Nissin), `7896843200157` (água Bioleve), `7891150020689` (Omo).
+Sem o banco (lista de teste): `7890000000011` (café 500 g), `7890000000035` (leite condensado), `7890000000042` (biscoito), `7890000000097` (arroz).
+tem menu de contexto
+⁠
+tem menu de contexto
 
 > A câmera só funciona em `localhost` (no próprio computador) ou num endereço **https**.
 
