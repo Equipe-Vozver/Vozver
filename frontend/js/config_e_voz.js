@@ -83,11 +83,11 @@ function falar(texto, nivelVoz = config.nivelVoz) {
     fala.lang = 'pt-BR';
     fala.rate = velocidadesDaVoz[nivelVoz];
 
-    // Usa uma voz em português, se o aparelho tiver
-    const vozBrasileira = speechSynthesis.getVoices().find((voz) => voz.lang === 'pt-BR');
-    if (vozBrasileira) {
-        fala.voice = vozBrasileira;
-    }
+    // Usa uma voz em português, se o aparelho tiver.
+    // Prefere a voz que fica DENTRO do aparelho (localService): ela funciona sem internet.
+    // As vozes "Google" do Chrome no computador precisam de internet e ficariam mudas no Demoday.
+    const vozesEmPortugues = speechSynthesis.getVoices().filter((voz) => voz.lang === 'pt-BR');
+    const vozBrasileira = vozesEmPortugues.find((voz) => voz.localService) || vozesEmPortugues[0];
 
     fala.onerror = (evento) => {
         if (evento.error === 'not-allowed') {
